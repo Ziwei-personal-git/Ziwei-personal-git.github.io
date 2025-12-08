@@ -1,9 +1,16 @@
-
+---
+title: My Personal Portfolio Site
+layout: default 
+---
 
 # 👤 [Your Full Name]
 ### [Your Professional Title or Tagline]
 
 ---
+
+<div style="display: flex; flex-wrap: wrap;">
+
+<div style="flex: 1; min-width: 250px; padding-right: 20px;">
 
 ## 🧭 Navigation / Quick Links
 
@@ -15,6 +22,22 @@
 * [LinkedIn Profile](https://linkedin.com/in/[your-username])
 
 ---
+
+## ℹ️ Personal Information & Contact 
+
+### Contact Details
+
+* **Email:** [your.email@example.com](mailto:your.email@example.com)
+* **Location:** [City, Country]
+
+### Connect Online
+
+* **Twitter:** [@YourHandle](https://twitter.com/YourHandle)
+* **Personal Blog:** [Blog URL](https://yourblog.com)
+
+</div>
+
+<div style="flex: 3; min-width: 300px; padding-left: 20px; border-left: 1px solid #ccc;">
 
 ## 🎯 Main Content Section
 
@@ -33,27 +56,5 @@ I am a passionate **[Your Field]** specialist with over **[Number]** years of ex
 | **Databases** | SQL, MongoDB, PostgreSQL |
 | **Tools** | Git, Docker, VS Code, Azure/AWS |
 
----
-
-## ℹ️ Personal Information & Contact 
-
-### Contact Details
-
-* **Email:** [your.email@example.com](mailto:your.email@example.com)
-* **Location:** [City, Country]
-* **Phone:** [+1 (555) 123-4567] (Optional)
-
-### About Me
-
-* **Interests:** [Hobby 1], [Hobby 2], [Hobby 3]
-* **Education:** [Your Degree] from [University Name]
-* **Currently Learning:** [New Technology/Skill]
-
-### Connect Online
-
-* **Twitter:** [@YourHandle](https://twitter.com/YourHandle)
-* **Stack Overflow:** [Profile Link](https://stackoverflow.com/users/...)
-* **Personal Blog:** [Blog URL](https://yourblog.com)
-
----
-*Created using Markdown for GitHub Pages.*
+</div>
+</div>
