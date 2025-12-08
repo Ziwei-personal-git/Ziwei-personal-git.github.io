@@ -1,6 +1,31 @@
 ---
+# YAML Front Matter
 title: My Personal Portfolio Site
-layout: default 
+layout: sidebar # <-- USE THE NEW LAYOUT FILE NAME HERE!
+# -----------------------------------------------------------------------------
+# DEFINE THE SIDEBAR CONTENT (LEFT COLUMN)
+# IMPORTANT: Use a pipe | to start a multi-line string for the sidebar content
+sidebar: |
+    ## 🧭 Navigation
+    * [Home](./index.html)
+    * [Projects](./projects.html)
+    * [Blog/Articles](./blog.html)
+    * [Contact](./contact.html)
+    * [GitHub Profile](https://github.com/[your-username])
+    * [LinkedIn Profile](https://linkedin.com/in/[your-username])
+
+    ---
+
+    ## ℹ️ Personal Info
+    
+    ### Contact Details
+    * **Email:** [your.email@example.com](mailto:your.email@example.com)
+    * **Location:** [City, Country]
+
+    ### Connect Online
+    * **Twitter:** [@YourHandle](https://twitter.com/YourHandle)
+    * **Personal Blog:** [Blog URL](https://yourblog.com)
+# -----------------------------------------------------------------------------
 ---
 
 # 👤 [Your Full Name]
@@ -8,38 +33,7 @@ layout: default
 
 ---
 
-<div style="display: flex; flex-wrap: wrap;">
-
-<div style="flex: 1; min-width: 250px; padding-right: 20px;">
-
-## 🧭 Navigation / Quick Links
-
-* [Home](./index.html)
-* [Projects](./projects.html)
-* [Blog/Articles](./blog.html)
-* [Contact](./contact.html)
-* [GitHub Profile](https://github.com/[your-username])
-* [LinkedIn Profile](https://linkedin.com/in/[your-username])
-
----
-
-## ℹ️ Personal Information & Contact 
-
-### Contact Details
-
-* **Email:** [your.email@example.com](mailto:your.email@example.com)
-* **Location:** [City, Country]
-
-### Connect Online
-
-* **Twitter:** [@YourHandle](https://twitter.com/YourHandle)
-* **Personal Blog:** [Blog URL](https://yourblog.com)
-
-</div>
-
-<div style="flex: 3; min-width: 300px; padding-left: 20px; border-left: 1px solid #ccc;">
-
-## 🎯 Main Content Section
+## 🎯 Main Content Section (RIGHT COLUMN)
 
 ### Welcome!
 
@@ -56,5 +50,5 @@ I am a passionate **[Your Field]** specialist with over **[Number]** years of ex
 | **Databases** | SQL, MongoDB, PostgreSQL |
 | **Tools** | Git, Docker, VS Code, Azure/AWS |
 
-</div>
-</div>
+---
+*Created using Jekyll Layouts for reliable two-column display.*
