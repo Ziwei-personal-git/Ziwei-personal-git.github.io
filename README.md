@@ -1,5 +1,4 @@
 ---
-# YAML Front Matter
 title: My Personal Portfolio Site
 layout: sidebar # <-- USE THE NEW LAYOUT FILE NAME HERE!
 # -----------------------------------------------------------------------------
