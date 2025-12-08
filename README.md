@@ -1,8 +1,4 @@
----
-# YAML Front Matter (Required for Jekyll on GitHub Pages)
-title: My Personal Portfolio Site
-layout: default 
----
+
 
 # 👤 [Your Full Name]
 ### [Your Professional Title or Tagline]
