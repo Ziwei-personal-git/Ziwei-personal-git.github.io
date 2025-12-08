@@ -1,7 +1,7 @@
 ---
 # YAML Front Matter (Required for Jekyll on GitHub Pages)
-title: [Your Full Name] - Personal Portfolio
-layout: default # Uses the default theme layout
+title: My Personal Portfolio Site
+layout: default 
 ---
 
 # 👤 [Your Full Name]
@@ -11,12 +11,12 @@ layout: default # Uses the default theme layout
 
 ## 🧭 Navigation / Quick Links
 
-* **[Home]** (./index.html or /)
-* **[Projects]** (./projects.html)
-* **[Blog/Articles]** (./blog.html)
-* **[Contact]** (./contact.html)
-* **[GitHub Profile]** (https://github.com/[your-username])
-* **[LinkedIn Profile]** (https://linkedin.com/in/[your-username])
+* [Home](./index.html)
+* [Projects](./projects.html)
+* [Blog/Articles](./blog.html)
+* [Contact](./contact.html)
+* [GitHub Profile](https://github.com/[your-username])
+* [LinkedIn Profile](https://linkedin.com/in/[your-username])
 
 ---
 
@@ -26,7 +26,7 @@ layout: default # Uses the default theme layout
 
 This is the main area of your personal website. Use this space to introduce yourself, highlight your skills, and showcase your professional summary.
 
-I am a passionate [Your Field] specialist with over [Number] years of experience in [Key Skill 1] and [Key Skill 2]. I enjoy building efficient solutions and contributing to open-source projects.
+I am a passionate **[Your Field]** specialist with over **[Number]** years of experience in **[Key Skill 1]** and **[Key Skill 2]**. I enjoy building efficient solutions and contributing to open-source projects.
 
 ### Core Skills
 
@@ -39,9 +39,7 @@ I am a passionate [Your Field] specialist with over [Number] years of experience
 
 ---
 
-## ℹ️ Personal Information & Contact (Left-Side Style)
-
-*This section is structured as a clear list, which often renders well in a standard sidebar-like format when a GitHub Pages theme is applied.*
+## ℹ️ Personal Information & Contact 
 
 ### Contact Details
 
