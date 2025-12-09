@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[Your Full Name] - Personal Portfolio</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .main-wrapper {
+            display: flex; /* Activate Flexbox */
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        .sidebar {
+            flex: 1; /* Takes up 1 part of space (e.g., 25%) */
+            padding-right: 30px;
+            border-right: 1px solid #ccc;
+        }
+        .content {
+            flex: 3; /* Takes up 3 parts of space (e.g., 75%) */
+            padding-left: 30px;
+        }
+        /* Style for navigation list */
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #007bff;
+            display: block;
+            padding: 5px 0;
+        }
+        /* Responsive design for smaller screens */
+        @media (max-width: 768px) {
+            .main-wrapper {
+                flex-direction: column; /* Stack columns vertically on mobile */
+            }
+            .sidebar {
+                border-right: none;
+                border-bottom: 1px solid #ccc;
+                padding-bottom: 20px;
+                padding-right: 0;
+            }
+            .content {
+                padding-left: 0;
+                padding-top: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>[Your Full Name]</h1>
+        <h3>[Your Professional Title or Tagline]</h3>
+    </header>
+
+    <div class="main-wrapper">
+        
+        <div class="sidebar">
+            
+            <h2>Navigation / Quick Links</h2>
+            <ul>
+                <li><a href="./index.html">[Home]</a></li>
+                <li><a href="./projects.html">[Projects]</a></li>
+                <li><a href="./_publications/publications.html">[Publications]</a></li>
+                <li><a href="./contact.html">[Contact]</a></li>
+                <li><a href="https://github.com/[your-username]">[GitHub Profile]</a></li>
+                <li><a href="https://linkedin.com/in/[your-username]">[LinkedIn Profile]</a></li>
+            </ul>
+
+            <hr>
+
+            <h2>Personal Information & Contact</h2>
+            
+            <h3>Contact Details</h3>
+            <ul>
+                <li><strong>Email:</strong> <a href="mailto:your.email@example.com">[your.email@example.com]</a></li>
+                <li><strong>Location:</strong> [City, Country]</li>
+                <li><strong>Phone:</strong> [+1 (555) 123-4567] (Optional)</li>
+            </ul>
+
+            <h3>About Me</h3>
+            <ul>
+                <li><strong>Interests:</strong> [Hobby 1], [Hobby 2], [Hobby 3]</li>
+                <li><strong>Education:</strong> [Your Degree] from [University Name]</li>
+            </ul>
+
+            <h3>Connect Online</h3>
+            <ul>
+                <li><strong>Twitter:</strong> <a href="https://twitter.com/YourHandle">@YourHandle</a></li>
+                <li><strong>Stack Overflow:</strong> [Profile Link]</li>
+                <li><strong>Personal Blog:</strong> [Blog URL]</li>
+            </ul>
+
+        </div>
+        
+        <div class="content">
+
+            <h2>Publications</h2>
+
+            <h3>2024</h3>
+            <p><strong>Shedding Light on the Kinetics of the Carboxysulfitic Scenario</strong>
+            <br>SB White, PB Rimmer, <strong>Z Liu</strong>
+            <br>
+            ACS Earth and Space Chemistry 8 (11), 2133-2144
+            <br><li><a href="./Ziwei-personal-git.github.io/_publications/2024 White et al ACS Earth Space Chem.pdf">PDF</a></li><li><a href="https://pubs.acs.org/doi/full/10.1021/acsearthspacechem.4c00083">Web</a></li></p>
+
+            <p>I am a passionate <strong>[Your Field]</strong> specialist with over <strong>[Number]</strong> years of experience in <strong>[Key Skill 1]</strong> and <strong>[Key Skill 2]</strong>. I enjoy building efficient solutions and contributing to open-source projects.</p>
+
+            <h3>Core Skills</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Skills</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Programming</strong></td>
+                        <td>Python, JavaScript, Java, C++</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Web Development</strong></td>
+                        <td>HTML5, CSS3, React, Node.js</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Databases</strong></td>
+                        <td>SQL, MongoDB, PostgreSQL</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tools</strong></td>
+                        <td>Git, Docker, VS Code, Azure/AWS</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <hr>
+            <p><small>*Created using HTML and CSS for reliable GitHub Pages display.</small></p>
+        </div>
+        
+    </div>
+
+</body>
+</html>
