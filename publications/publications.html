@@ -113,42 +113,118 @@
 
             <h2>Publications</h2>
 
-            <h3>2024</h3>
-            <p><strong>Shedding Light on the Kinetics of the Carboxysulfitic Scenario</strong>
-            <br>SB White, PB Rimmer, <strong>Z Liu</strong>
-            <br>
-            ACS Earth and Space Chemistry 8 (11), 2133-2144
-            <br><li><a href="./Ziwei-personal-git.github.io/publications/2024 White et al ACS Earth Space Chem.pdf">PDF</a></li><li><a href="https://pubs.acs.org/doi/full/10.1021/acsearthspacechem.4c00083">Web</a></li></p>
+<style>
+/* ... (Your current CSS is perfect for this solution) ... */
+.aligned-list {
+    list-style: none;
+    padding-left: 0; 
+}
 
-            <p>I am a passionate <strong>[Your Field]</strong> specialist with over <strong>[Number]</strong> years of experience in <strong>[Key Skill 1]</strong> and <strong>[Key Skill 2]</strong>. I enjoy building efficient solutions and contributing to open-source projects.</p>
+.aligned-list li {
+    display: flex; 
+    align-items: flex-start;
+    margin-bottom: 25px; 
+    list-style-type: none;
+    overflow: hidden; 
+    position: relative; 
+}
 
-            <h3>Core Skills</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Category</th>
-                        <th>Skills</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Programming</strong></td>
-                        <td>Python, JavaScript, Java, C++</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Web Development</strong></td>
-                        <td>HTML5, CSS3, React, Node.js</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Databases</strong></td>
-                        <td>SQL, MongoDB, PostgreSQL</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Tools</strong></td>
-                        <td>Git, Docker, VS Code, Azure/AWS</td>
-                    </tr>
-                </tbody>
-            </table>
+.list-number {
+    font-weight: bold;
+    margin-right: 10px; 
+    flex-shrink: 0; 
+    min-width: 1em; 
+}
+
+.publication-content {
+    flex: 1;
+    min-width: 0; 
+}
+
+.publication-content .title {
+    font-weight: bold;
+    display: block; 
+    margin-bottom: 5px;
+}
+
+.publication-content .details {
+    display: block;
+    margin-bottom: 5px;
+    line-height: 1.4; 
+}
+</style>
+
+
+<ul class="aligned-list" id="publication-list">
+    
+    <li>
+        <span class="list-number"></span>
+        <div class="publication-content">
+            <span class="title">Shedding Light on the Kinetics of the Carboxysulfitic Scenario</span>
+            <span class="details">S B White, P B Rimmer, <strong>Z Liu</strong>
+            <br>ACS Earth and Space Chemistry 8 (11), 2133-2144, 2024</span>
+            <span class="details">
+                <a href="./publications/2024 White et al ACS Earth Space Chem.pdf">PDF</a> | 
+                <a href="https://pubs.acs.org/doi/full/10.1021/acsearthspacechem.4c00083">Web</a>
+            </span>
+        </div>
+    </li>
+
+    <li>
+        <span class="list-number"></span>
+        <div class="publication-content">
+            <span class="title">Prebiotic chiral transfer from self-aminoacylating ribozymes may favor either handedness</span>
+            <span class="details">J Kenchel, A Vázquez-Salazar, R Wells, K Brunton, E Janzen, K M Schultz, <strong>Z Liu</strong>, W Li, E T Parker, J P Dworkin, I A Chen
+            <br>Nature Communications 15 (1), 7980, 2024</span>
+            <span class="details">
+                <a href="./publications/2024 Kenchel et al Nat Commun.pdf">PDF</a> | 
+                <a href="https://www.nature.com/articles/s41467-024-52362-x">Web</a>
+            </span>
+        </div>
+    </li>
+
+    <li>
+        <span class="list-number"></span>
+        <div class="publication-content">
+            <span class="title">Manganese (II) promotes prebiotically plausible non-enzymatic RNA ligation reactions</span>
+            <span class="details"><strong>Z Liu*</strong>, C Z Jiang, A D Bond, N J Tosca, J D Sutherland
+            <br>Chemical Communications 60 (51), 6528-6531, 2024</span>
+            <span class="details">
+                <a href="./publications/2024 ChemCommun.pdf">PDF</a> | 
+                <a href="https://pubs.rsc.org/en/content/articlehtml/2024/cc/d4cc01086h">Web</a>
+            </span>
+        </div>
+    </li>
+
+    <li>
+        <span class="list-number"></span>
+        <div class="publication-content">
+            <span class="title">Triplet-encoded prebiotic RNA aminoacylation</span>
+            <span class="details">M Su, C Schmitt, <strong>Z Liu*</strong>, S J Roberts, K C Liu, K Roder, A Jäschke, D J Wales, J D Sutherland
+            <br>Journal of the American Chemical Society 145 (29), 15971-15980, 2023</span>
+            <span class="details">
+                <a href="./publications/2023 Su et al JACS.pdf">PDF</a> | 
+                <a href="https://pubs.acs.org/doi/full/10.1021/jacs.3c03931">Web</a>
+            </span>
+        </div>
+    </li>
+</ul>
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const listItems = document.querySelectorAll('.aligned-list li');
+        const totalItems = listItems.length;
+
+        listItems.forEach((item, index) => {
+            const reversedNumber = totalItems - index;
+
+            const numberSpan = item.querySelector('.list-number');
+
+            if (numberSpan) {
+                numberSpan.textContent = reversedNumber + '.';
+            }
+        });
+    });
+</script>       
 
             <hr>
             <p><small>*Created using HTML and CSS for reliable GitHub Pages display.</small></p>
