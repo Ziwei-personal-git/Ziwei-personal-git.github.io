@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadHTML('/layouts/head.html','head-placeholder');
     loadHTML('/layouts/header.html', 'header-placeholder');
     loadHTML('/layouts/sidebar.html', 'sidebar-placeholder');
+    loadHTML('/layouts/footnote.html', 'footnote-placeholder');
     
     const listItems = document.querySelectorAll('.aligned-list li');
     const totalItems = listItems.length;
