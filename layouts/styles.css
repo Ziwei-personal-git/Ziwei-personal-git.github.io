@@ -37,6 +37,71 @@ header {
     display: block;
     padding: 5px 0;
 }
+.aligned-list {
+    list-style: none;
+    padding-left: 0; 
+}
+
+.aligned-list li {
+    display: flex; 
+    align-items: flex-start;
+    margin-bottom: 25px; 
+    list-style-type: none;
+    overflow: hidden; 
+    position: relative; 
+}
+
+.list-number {
+    font-weight: bold;
+    margin-right: 10px; 
+    flex-shrink: 0; 
+    min-width: 1em; 
+}
+
+.publication-content {
+    flex: 1;
+    min-width: 0; 
+}
+
+.publication-content .title {
+    font-weight: bold;
+    display: block; 
+    margin-bottom: 5px;
+}
+
+.publication-content .details {
+    display: block;
+    margin-bottom: 5px;
+    line-height: 1.4; 
+}
+
+.publication-content .art-container {
+    /* Optional: Add some space between text details and the image */
+    display: block;
+    margin-top: 10px; 
+}
+
+.cover-art-img {
+    /* REQUIRED: Set a fixed width for all images */
+    width: 200px; /* Adjust this value (e.g., 150px, 250px) to your preferred size */
+    
+    /* REQUIRED: This forces the height to adjust proportionally 
+       based on the image's original aspect ratio and the set width */
+    height: auto; 
+    
+    /* Optional: Add a border or shadow for visual separation */
+    border: 1px solid #ccc;
+    padding: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.year-separator {
+    font-size: 20px; /* Example: 24 pixels */
+    font-weight: bold; /* Optional: Make it stand out more */
+    margin-top: 0.5em; /* Add space above the year */
+    margin-bottom: 1.5em; /* Add space below the year */
+}
+
 /* Responsive design for smaller screens */
 @media (max-width: 768px) {
     .main-wrapper {

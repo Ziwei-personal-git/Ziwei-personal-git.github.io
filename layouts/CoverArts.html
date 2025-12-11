@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[Your Full Name] - Personal Portfolio</title>
+    <link rel="stylesheet" href="/layouts/styles.css">
+    
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <div class="main-wrapper">
+
+        <div class="sidebar">
+
+            <div id="sidebar-placeholder"></div>
+            
+        </div>  
+        
+        <div class="content">
+
+            <h2>Cover Arts</h2>
+<!-- <p>In the following list, publications with corresponding authorship are marked with an asterisk (*); publications with co-first authorship are marked with an double dagger (&Dagger;).</p> -->
+
+
+<ul class="aligned-list" id="publication-list">
+    <div class="year-separator">2021</div>
+    <li>
+        <span class="list-number"></span>
+        <div class="publication-content">
+            <span class="title">
+                <a href="https://www.nature.com/articles/s41557-021-00789-w">Not accepted Cover Art for "Prebiotic photoredox synthesis from carbon dioxide and sulfite" </a>
+            </span>
+            
+            <span class="art-container">
+                <img src="/arts/NatChem2021.jpg" alt="Cover Art 2020" class="cover-art-img">
+            </span>
+        </div>
+    </li>
+    <div class="year-separator">2020</div>
+    <li>
+        <span class="list-number"></span>
+        <div class="publication-content">
+            <span class="title">
+                <a href="https://www.nature.com/collections/jadebhfbhb">Cover Picture for Focus "Prebiotic chemistry" </a>
+            </span>
+            
+            <span class="art-container">
+                <img src="/arts/NatChem2020.jpg" alt="Cover Art 2020" class="cover-art-img">
+            </span>
+        </div>
+    </li>
+
+    <div class="year-separator">2018</div>
+    <li>
+        <span class="list-number"></span>
+        <div class="publication-content">
+            <span class="title">
+                <a href="https://pubs.rsc.org/en/content/articlelanding/2018/sc/c8sc90180e">Inside Cover for "Tuning the reactivity of nitriles using Cu (II) catalysis-potentially prebiotic activation of nucleotides"</a>
+            </span>
+            
+            <span class="art-container">
+                <img src="/arts/ChemSci.jpg" alt="Inside Cover Art 2018" class="cover-art-img">
+            </span>
+        </div>
+    </li>
+    
+
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const listItems = document.querySelectorAll('.aligned-list li');
+        const totalItems = listItems.length;
+
+        listItems.forEach((item, index) => {
+            const reversedNumber = totalItems - index;
+
+            const numberSpan = item.querySelector('.list-number');
+
+            if (numberSpan) {
+                numberSpan.textContent = reversedNumber + '.';
+            }
+        });
+    });
+</script>       
+
+            <hr>
+            <p><small>*Created using HTML and CSS for reliable GitHub Pages display.</small></p>
+        </div>
+        
+    </div>
+<script src="/layouts/loader.js"></script> 
+</body>
+</html>
