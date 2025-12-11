@@ -26,3 +26,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+// Function to toggle visibility
+function toggleGroup(year) {
+    const group = document.getElementById(`publications-${year}`);
+    const header = document.querySelector(`[data-year="${year}"]`);
+    
+    group.classList.toggle('collapsed');
+    header.classList.toggle('active'); // Change color/arrow on header
+}
+
+// Add click listeners to all year headers
+document.querySelectorAll('.collapsible-header').forEach(header => {
+    header.addEventListener('click', () => {
+        const year = header.getAttribute('data-year');
+        toggleGroup(year);
+    });
+});

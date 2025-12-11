@@ -106,6 +106,18 @@ header {
     margin-bottom: 1.5em; /* Add space below the year */
 }
 
+/* Style for the group that will be hidden/shown */
+.publication-group.collapsed {
+    display: none;
+}
+
+/* Make the year clickable and visually distinct */
+.collapsible-header {
+    cursor: pointer;
+    font-weight: bold;
+    /* Add an arrow/icon that rotates when active/collapsed */
+}
+
 /* Responsive design for smaller screens */
 @media (max-width: 768px) {
     .main-wrapper {
