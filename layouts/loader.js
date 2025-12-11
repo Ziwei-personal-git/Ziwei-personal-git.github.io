@@ -8,6 +8,6 @@ function loadHTML(url, elementId) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    loadHTML('./header.html', 'header-placeholder');
-    loadHTML('./sidebar.html', 'sidebar-placeholder');
+    loadHTML('/layouts/header.html', 'header-placeholder');
+    loadHTML('/layouts/sidebar.html', 'sidebar-placeholder');
 });
