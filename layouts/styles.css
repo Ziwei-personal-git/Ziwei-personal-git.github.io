@@ -26,7 +26,11 @@ header {
     flex: 3; /* Takes up 3 parts of space (e.g., 75%) */
     padding-left: 30px;
 }
-/* Style for navigation list */
+
+.research-areas-list li {
+    margin-bottom: 15px;
+}
+
 .sidebar ul {
     list-style: none;
     padding: 0;
