@@ -12,12 +12,13 @@ document.addEventListener('DOMContentLoaded', () => {
     loadHTML('/layouts/header.html', 'header-placeholder');
     loadHTML('/layouts/sidebar.html', 'sidebar-placeholder');
     loadHTML('/layouts/footnote.html', 'footnote-placeholder');
-    
-    const listItems = document.querySelectorAll('.aligned-list li');
-    const totalItems = listItems.length;
 
-    listItems.forEach((item, index) => {
-        const reversedNumber = totalItems - index;
+    //Article number counting
+    const articleItems = document.querySelectorAll('#publication-list .publication-group li');
+    const totalArticleItems = articleItems.length;
+
+    articleItems.forEach((item, index) => {
+        const reversedNumber = totalArticleItems - index;
 
         const numberSpan = item.querySelector('.list-number');
 
@@ -25,6 +26,38 @@ document.addEventListener('DOMContentLoaded', () => {
             numberSpan.textContent = reversedNumber + '.';
         }
     });
+
+    //Books number counting
+    const bookChapterItems = document.querySelectorAll('#book-chaptors-list li');
+    const totalBookChapterItems = bookChapterItems.length;
+    
+    if (totalBookChapterItems > 0) {
+        bookChapterItems.forEach((item, index) => {
+            const reversedNumber = totalBookChapterItems - index;
+            const numberSpan = item.querySelector('.list-number');
+            if (numberSpan) {
+                numberSpan.textContent = reversedNumber + '.';
+            }
+        });
+    }
+
+    //Patents number counting
+    const patentItems = document.querySelectorAll('#patents-list li');
+    const totalPatentItems = patentItems.length;
+    
+    // Check if there are patents before looping (optional, but good practice)
+    if (totalPatentItems > 0) {
+        patentItems.forEach((item, index) => {
+            const reversedNumber = totalPatentItems - index; // Starts patent numbering from the patent total
+
+            const numberSpan = item.querySelector('.list-number');
+
+            if (numberSpan) {
+                numberSpan.textContent = reversedNumber + '.';
+            }
+        });
+    }
+
     const triggers = document.querySelectorAll('.collapsed-header');
 
     triggers.forEach(trigger => {
