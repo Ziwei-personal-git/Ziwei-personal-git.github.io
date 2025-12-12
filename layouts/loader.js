@@ -32,14 +32,14 @@ document.addEventListener('DOMContentLoaded', () => {
             numberSpan.textContent = reversedNumber + '.';
         }
     });
-    const triggers = document.querySelectorAll('.collapsed-trigger');
+    const triggers = document.querySelectorAll('.collapsed-header');
 
     triggers.forEach(trigger => {
         // Add a click listener to each year separator
         trigger.addEventListener('click', () => {
             
             // Get the ID of the content div (e.g., "pub-group-2025")
-            const targetId = trigger.getAttribute('data-target');
+            const targetId = trigger.getAttribute('data-year');
             const targetGroup = document.getElementById(targetId);
 
             if (targetGroup) {
