@@ -112,7 +112,7 @@ header {
 }
 
 /* Make the year clickable and visually distinct */
-.year-separator.collapsible-header {
+.year-separator.collapsed-header {
     cursor: pointer;
     user-select: none; /* Prevents text selection on click */
     position: relative;

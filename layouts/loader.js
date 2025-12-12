@@ -7,7 +7,7 @@ function loadHTML(url, elementId) {
         .catch(error => console.error('Error loading content:', error));
 }
 // Add click listeners to all year headers
-document.querySelectorAll('.collapsible-header').forEach(header => {
+document.querySelectorAll('.collapsed-header').forEach(header => {
     header.addEventListener('click', () => {
         const year = header.getAttribute('data-year');
         toggleGroup(year);
