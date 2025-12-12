@@ -112,10 +112,23 @@ header {
 }
 
 /* Make the year clickable and visually distinct */
-.collapsible-header {
+.year-separator.collapsible-header {
     cursor: pointer;
+    user-select: none; /* Prevents text selection on click */
+    position: relative;
+    padding-right: 25px; /* Space for the icon */
+}
+
+.year-separator.collapsed-header::after {
+    content: '+'; /* Default state: Collapsed (show plus sign) */
+    position: absolute;
+    right: 10px;
     font-weight: bold;
-    /* Add an arrow/icon that rotates when active/collapsed */
+    transition: transform 0.3s ease;
+}
+
+.year-separator.collapsed-header.active::after {
+    content: '-'; /* Expanded state: Show minus sign */
 }
 
 /* Responsive design for smaller screens */
