@@ -105,7 +105,9 @@ header {
     margin-top: 0.5em; /* Add space above the year */
     margin-bottom: 1.5em; /* Add space below the year */
 }
-
+.publication-group {
+    display: block;
+}
 /* Style for the group that will be hidden/shown */
 .publication-group.collapsed {
     display: none;
@@ -116,13 +118,14 @@ header {
     cursor: pointer;
     user-select: none; /* Prevents text selection on click */
     position: relative;
-    padding-right: 25px; /* Space for the icon */
+    padding-left: 25px;
+    padding-right: 10px; /* Space for the icon */
 }
 
 .year-separator.collapsed-header::after {
     content: '+'; /* Default state: Collapsed (show plus sign) */
     position: absolute;
-    right: 10px;
+    left: 10px;
     font-weight: bold;
     transition: transform 0.3s ease;
 }
