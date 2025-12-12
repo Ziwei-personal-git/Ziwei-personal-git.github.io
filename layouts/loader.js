@@ -6,6 +6,13 @@ function loadHTML(url, elementId) {
         })
         .catch(error => console.error('Error loading content:', error));
 }
+// Add click listeners to all year headers
+document.querySelectorAll('.collapsible-header').forEach(header => {
+    header.addEventListener('click', () => {
+        const year = header.getAttribute('data-year');
+        toggleGroup(year);
+    });
+});
 
 document.addEventListener('DOMContentLoaded', () => {
     loadHTML('/layouts/head.html','head-placeholder');
@@ -25,21 +32,29 @@ document.addEventListener('DOMContentLoaded', () => {
             numberSpan.textContent = reversedNumber + '.';
         }
     });
-});
+    const triggers = document.querySelectorAll('.collapsed-trigger');
 
-// Function to toggle visibility
-function toggleGroup(year) {
-    const group = document.getElementById(`publications-${year}`);
-    const header = document.querySelector(`[data-year="${year}"]`);
-    
-    group.classList.toggle('collapsed');
-    header.classList.toggle('active'); // Change color/arrow on header
-}
+    triggers.forEach(trigger => {
+        // Add a click listener to each year separator
+        trigger.addEventListener('click', () => {
+            
+            // Get the ID of the content div (e.g., "pub-group-2025")
+            const targetId = trigger.getAttribute('data-target');
+            const targetGroup = document.getElementById(targetId);
 
-// Add click listeners to all year headers
-document.querySelectorAll('.collapsible-header').forEach(header => {
-    header.addEventListener('click', () => {
-        const year = header.getAttribute('data-year');
-        toggleGroup(year);
+            if (targetGroup) {
+                // 1. Toggle the 'collapsed' class on the content group (shows/hides the content)
+                targetGroup.classList.toggle('collapsed');
+
+                // 2. Toggle the 'active' class on the trigger (changes the icon/styling)
+                trigger.classList.toggle('active');
+
+                // 3. Accessibility improvement (tells screen readers the state)
+                const isExpanded = !targetGroup.classList.contains('collapsed');
+                trigger.setAttribute('aria-expanded', isExpanded);
+            }
+        });
     });
 });
+
+
