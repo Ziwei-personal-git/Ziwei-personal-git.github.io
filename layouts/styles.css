@@ -31,6 +31,10 @@ header {
     margin-bottom: 20px;
 }
 
+.about-me-list li small{
+    color: #00bbff;
+}
+
 .sidebar ul {
     list-style: none;
     padding: 0;
