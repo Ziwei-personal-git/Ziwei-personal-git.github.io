@@ -223,11 +223,6 @@ header {
     opacity: 1;
 }
 
-/* --- Flipped Layout (Image Right, Text Left) --- */
-.sticky-content.image-right {
-    /* Simply reverses the order of the flex items */
-    flex-direction: row-reverse;
-}
 
 .sticky-content.image-right #image-display {
     order: 2; 
