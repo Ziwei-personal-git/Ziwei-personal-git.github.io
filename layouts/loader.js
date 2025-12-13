@@ -91,8 +91,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const triggerSections = document.querySelectorAll('.trigger-section');
 
     const options = {
-        root: null, // relative to the viewport
-        rootMargin: '0px 0px -50% 0px', // Trigger when 50% of the element is past the top
+        root: null,
+        rootMargin: '0px 0px -50% 0px', 
         threshold: 0
     };
 
@@ -103,28 +103,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 const targetImageId = targetElement.dataset.image;
                 const targetSide = targetElement.dataset.side;
 
-                // --- 1. HANDLE IMAGE SWAP ---
+                // --- 1. HANDLE LAYOUT FLIP (smoothly animates the order property) ---
+                // Do the layout flip first so the image fade happens in the new position
+                if (targetSide === 'right') {
+                    stickyContainer.classList.add('image-right');
+                } else {
+                    stickyContainer.classList.remove('image-right');
+                }
+
+                // --- 2. HANDLE TEXT CONTENT UPDATE ---
+                // Update text content
+                textOverlay.innerHTML = targetElement.innerHTML;
+
+
+                // --- 3. HANDLE IMAGE SWAP (smooth opacity change) ---
                 // Deactivate all images
+                // You can add a small delay here if you want the layout to finish moving 
+                // BEFORE the image fades, but often simultaneous is best.
                 images.forEach(img => img.classList.remove('active'));
 
                 // Activate the new image
                 const newActiveImage = document.getElementById(`image-${targetImageId}`);
                 if (newActiveImage) {
                     newActiveImage.classList.add('active');
-                }
-
-                // --- 2. HANDLE TEXT CONTENT UPDATE ---
-                // Update the text in the overlay with the current trigger section's content
-                textOverlay.innerHTML = targetElement.innerHTML;
-
-
-                // --- 3. HANDLE LAYOUT FLIP (CSS CLASS) ---
-                if (targetSide === 'right') {
-                    // Image on the RIGHT (Text on the LEFT)
-                    stickyContainer.classList.add('image-right');
-                } else {
-                    // Image on the LEFT (Default)
-                    stickyContainer.classList.remove('image-right');
                 }
             }
         });

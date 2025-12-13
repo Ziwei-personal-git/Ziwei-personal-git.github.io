@@ -181,19 +181,22 @@ header {
     height: 100vh;
     overflow: hidden;
     z-index: 10;
-    display: flex; /* Default: Image (left) | Text (right) */
-    transition: all 0.5s ease-in-out; /* Smooth transition for the layout swap */
+    display: flex;
+    transition: all 0.7s ease-in-out; 
+    flex-direction: row; 
 }
 
 /* --- Default Layout (Image Left, Text Right) --- */
 #image-display {
-    flex: 3; /* Image takes 60% of width */
+    flex: 3; 
+    order: 1;
     position: relative;
     height: 100%;
 }
 
 #text-column {
     flex: 2; /* Text takes 40% of width */
+    order: 2;
     height: 100%;
     display: flex;
     align-items: center;
@@ -223,6 +226,14 @@ header {
 .sticky-content.image-right {
     /* Simply reverses the order of the flex items */
     flex-direction: row-reverse;
+}
+
+.sticky-content.image-right #image-display {
+    order: 2; 
+}
+
+.sticky-content.image-right #text-column {
+    order: 1; 
 }
 
 /* --- Trigger Sections (Creates the scroll depth) --- */
