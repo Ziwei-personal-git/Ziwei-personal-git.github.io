@@ -1,32 +1,4 @@
 
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f9;
-}
-header {
-    background-color: #A3C1AD;
-    color: white;
-    padding: 20px;
-    text-align: center;
-}
-.main-wrapper {
-    display: flex; /* Activate Flexbox */
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 0 20px;
-}
-.sidebar {
-    flex: 1; /* Takes up 1 part of space (e.g., 25%) */
-    padding-right: 30px;
-    border-right: 1px solid #ccc;
-}
-.content {
-    flex: 3; /* Takes up 3 parts of space (e.g., 75%) */
-    padding-left: 30px;
-}
-
 .about-me-list li {
     margin-bottom: 20px;
 }
@@ -35,16 +7,6 @@ header {
     color: #00bbff;
 }
 
-.sidebar ul {
-    list-style: none;
-    padding: 0;
-}
-.sidebar ul li a {
-    text-decoration: none;
-    color: #007bff;
-    display: block;
-    padding: 5px 0;
-}
 .aligned-list {
     list-style: none;
     padding-left: 0; 
@@ -59,11 +21,45 @@ header {
     position: relative; 
 }
 
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+}
+
+.content {
+    flex: 3; /* Takes up 3 parts of space (e.g., 75%) */
+    padding-left: 30px;
+}
+
+.cover-art-img {
+    width: 200px; 
+    height: auto; 
+    border: 1px solid #ccc;
+    padding: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header {
+    background-color: #A3C1AD;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
 .list-number {
     font-weight: bold;
     margin-right: 10px; 
     flex-shrink: 0; 
     min-width: 1em; 
+}
+
+.main-wrapper {
+    display: flex;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
 }
 
 .publication-content {
@@ -84,81 +80,53 @@ header {
 }
 
 .publication-content .art-container {
-    /* Optional: Add some space between text details and the image */
     display: block;
     margin-top: 10px; 
-}
-
-.cover-art-img {
-    /* REQUIRED: Set a fixed width for all images */
-    width: 200px; /* Adjust this value (e.g., 150px, 250px) to your preferred size */
-    
-    /* REQUIRED: This forces the height to adjust proportionally 
-       based on the image's original aspect ratio and the set width */
-    height: auto; 
-    
-    /* Optional: Add a border or shadow for visual separation */
-    border: 1px solid #ccc;
-    padding: 5px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .publication-group {
     display: block;
 }
-/* Style for the group that will be hidden/shown */
+
 .publication-group.collapsed {
     display: none;
 }
 
-.year-separator {
-    font-size: 18px; /* Example: 24 pixels */
-    font-weight: bold; /* Optional: Make it stand out more */
-    margin-top: 0.5em; /* Add space above the year */
-    margin-bottom: 1.5em; /* Add space below the year */
+.sidebar {
+    flex: 1; /* Takes up 1 part of space (e.g., 25%) */
+    padding-right: 30px;
+    border-right: 1px solid #ccc;
 }
 
-/* Make the year clickable and visually distinct */
-.year-separator.collapsed-header {
-    cursor: pointer;
-    user-select: none; /* Prevents text selection on click */
-    position: relative;
-    padding-left: 25px;
-    padding-right: 10px; /* Space for the icon */
+.sidebar ul {
+    list-style: none;
+    padding: 0;
 }
-
-.year-separator.collapsed-header::after {
-    content: '+'; /* Default state: Collapsed (show plus sign) */
-    position: absolute;
-    left: 10px;
-    font-weight: bold;
-    transition: transform 0.3s ease;
+.sidebar ul li a {
+    text-decoration: none;
+    color: #007bff;
+    display: block;
+    padding: 5px 0;
 }
-
-.year-separator.collapsed-header.active::after {
-    content: '-'; /* Expanded state: Show minus sign */
-}
-
 
 .subsection-separator {
-    font-size: 20px; /* Example: 24 pixels */
-    font-weight: bold; /* Optional: Make it stand out more */
+    font-size: 20px; 
+    font-weight: bold; 
     color: rgb(117, 57, 154);
-    margin-top: 0.5em; /* Add space above the year */
-    margin-bottom: 1.5em; /* Add space below the year */
+    margin-top: 0.5em; 
+    margin-bottom: 1.5em; 
 }
 
-/* Make the year clickable and visually distinct */
 .subsection-separator.collapsed-header {
     cursor: pointer;
-    user-select: none; /* Prevents text selection on click */
+    user-select: none; 
     position: relative;
     padding-left: 25px;
-    padding-right: 10px; /* Space for the icon */
+    padding-right: 10px; 
 }
 
 .subsection-separator.collapsed-header::after {
-    content: '+'; /* Default state: Collapsed (show plus sign) */
+    content: '+'; 
     position: absolute;
     left: 10px;
     font-weight: bold;
@@ -166,7 +134,34 @@ header {
 }
 
 .subsection-separator.collapsed-header.active::after {
-    content: '-'; /* Expanded state: Show minus sign */
+    content: '-'; 
+}
+
+.year-separator {
+    font-size: 18px; 
+    font-weight: bold; 
+    margin-top: 0.5em; 
+    margin-bottom: 1.5em;
+}
+
+.year-separator.collapsed-header {
+    cursor: pointer;
+    user-select: none; 
+    position: relative;
+    padding-left: 25px;
+    padding-right: 10px; 
+}
+
+.year-separator.collapsed-header::after {
+    content: '+'; 
+    position: absolute;
+    left: 10px;
+    font-weight: bold;
+    transition: transform 0.3s ease;
+}
+
+.year-separator.collapsed-header.active::after {
+    content: '-'; 
 }
 
 /* Responsive design for smaller screens */
