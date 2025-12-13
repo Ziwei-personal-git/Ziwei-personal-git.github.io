@@ -201,7 +201,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(255, 255, 255, 0.95);
+    /* background-color: rgba(255, 255, 255, 0.95); */
     padding: 3rem;
     box-sizing: border-box;
     color: #333;
@@ -222,7 +222,6 @@ header {
 #image-display img.active {
     opacity: 1;
 }
-
 
 .sticky-content.image-right #image-display {
     order: 2; 
