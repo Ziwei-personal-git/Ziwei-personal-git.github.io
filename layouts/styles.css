@@ -167,7 +167,7 @@ header {
 
 /* --- Base Scroll and Sticky Setup --- */
 .scroll-container {
-    height: 600vh; /* 6 sections * 100vh = 600vh total scroll space */
+    height: 600vh; 
 }
 
 .sticky-wrapper {
@@ -177,7 +177,7 @@ header {
 .sticky-content {
     position: sticky;
     top: 0;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     overflow: hidden;
     z-index: 10;
@@ -206,13 +206,14 @@ header {
     box-sizing: border-box;
     color: #333;
     text-align: left;
+    overflow-y: auto;
 }
 
 /* --- Image Overlays and Transitions --- */
 #image-display img {
     position: absolute;
-    width: 200px;
-    height: auto;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     opacity: 0;
     transition: opacity 0.7s ease-in-out;
@@ -242,7 +243,10 @@ header {
     background: transparent;
     position: relative;
     z-index: 5;
-    padding-top: 50vh; /* Example to ensure some padding for text within trigger sections */
+    padding-top: 50vh; 
+    padding-left: 10%;
+    padding-right: 10%;
+    text-align: center;
 }
 
 /* Responsive design for smaller screens */

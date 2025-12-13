@@ -8,26 +8,30 @@ function loadHTML(url, elementId) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    // ----------------------------------------------------
+    // START: Layout and Footer Loading Handlers
+    // ----------------------------------------------------
     loadHTML('/layouts/head.html','head-placeholder');
     loadHTML('/layouts/header.html', 'header-placeholder');
     loadHTML('/layouts/sidebar.html', 'sidebar-placeholder');
     loadHTML('/layouts/footnote.html', 'footnote-placeholder');
 
-    //Article number counting
+    // ----------------------------------------------------
+    // START: List Numbering Handlers
+    // ----------------------------------------------------
+    // Article number counting
     const articleItems = document.querySelectorAll('#publication-list .publication-group li');
     const totalArticleItems = articleItems.length;
 
     articleItems.forEach((item, index) => {
         const reversedNumber = totalArticleItems - index;
-
         const numberSpan = item.querySelector('.list-number');
-
         if (numberSpan) {
             numberSpan.textContent = reversedNumber + '.';
         }
     });
 
-    //Books number counting
+    // Books number counting
     const bookChapterItems = document.querySelectorAll('#book-chaptors-list li');
     const totalBookChapterItems = bookChapterItems.length;
     
@@ -41,14 +45,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    //Patents number counting
+    // Patents number counting
     const patentItems = document.querySelectorAll('#patents-list li');
     const totalPatentItems = patentItems.length;
     
-    // Check if there are patents before looping (optional, but good practice)
     if (totalPatentItems > 0) {
         patentItems.forEach((item, index) => {
-            const reversedNumber = totalPatentItems - index; // Starts patent numbering from the patent total
+            const reversedNumber = totalPatentItems - index;
 
             const numberSpan = item.querySelector('.list-number');
 
@@ -58,32 +61,29 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // ----------------------------------------------------
+    // START: Collapsible Section Handlers
+    // ----------------------------------------------------
     const triggers = document.querySelectorAll('.collapsed-header');
 
     triggers.forEach(trigger => {
-        // Add a click listener to each year separator
         trigger.addEventListener('click', () => {
-            
-            // Get the ID of the content div (e.g., "pub-group-2025")
             const targetId = trigger.getAttribute('data-year');
             const targetGroup = document.getElementById(targetId);
 
             if (targetGroup) {
-                // 1. Toggle the 'collapsed' class on the content group (shows/hides the content)
                 targetGroup.classList.toggle('collapsed');
-
-                // 2. Toggle the 'active' class on the trigger (changes the icon/styling)
                 trigger.classList.toggle('active');
 
-                // 3. Accessibility improvement (tells screen readers the state)
                 const isExpanded = !targetGroup.classList.contains('collapsed');
                 trigger.setAttribute('aria-expanded', isExpanded);
             }
         });
     });
-});
 
-document.addEventListener('DOMContentLoaded', () => {
+    // ----------------------------------------------------
+    // START: Scroll-Triggered Layout Handler
+    // ----------------------------------------------------
     const stickyContainer = document.getElementById('sticky-container');
     const imageDisplay = document.getElementById('image-display');
     const images = imageDisplay.querySelectorAll('img');
@@ -103,26 +103,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 const targetImageId = targetElement.dataset.image;
                 const targetSide = targetElement.dataset.side;
 
-                // --- 1. HANDLE LAYOUT FLIP (smoothly animates the order property) ---
-                // Do the layout flip first so the image fade happens in the new position
+                // 1. HANDLE LAYOUT FLIP (Smoothly animates via CSS 'order' property)
                 if (targetSide === 'right') {
                     stickyContainer.classList.add('image-right');
                 } else {
                     stickyContainer.classList.remove('image-right');
                 }
 
-                // --- 2. HANDLE TEXT CONTENT UPDATE ---
-                // Update text content
+                // 2. HANDLE TEXT CONTENT UPDATE
                 textOverlay.innerHTML = targetElement.innerHTML;
 
 
-                // --- 3. HANDLE IMAGE SWAP (smooth opacity change) ---
-                // Deactivate all images
-                // You can add a small delay here if you want the layout to finish moving 
-                // BEFORE the image fades, but often simultaneous is best.
+                // 3. HANDLE IMAGE SWAP (Smooth opacity change)
                 images.forEach(img => img.classList.remove('active'));
 
-                // Activate the new image
                 const newActiveImage = document.getElementById(`image-${targetImageId}`);
                 if (newActiveImage) {
                     newActiveImage.classList.add('active');
@@ -136,5 +130,3 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(section);
     });
 });
-
-
