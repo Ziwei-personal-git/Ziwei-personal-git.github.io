@@ -83,4 +83,57 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+    const stickyContainer = document.getElementById('sticky-container');
+    const imageDisplay = document.getElementById('image-display');
+    const images = imageDisplay.querySelectorAll('img');
+    const textOverlay = document.getElementById('text-overlay');
+    const triggerSections = document.querySelectorAll('.trigger-section');
+
+    const options = {
+        root: null, // relative to the viewport
+        rootMargin: '0px 0px -50% 0px', // Trigger when 50% of the element is past the top
+        threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const targetElement = entry.target;
+                const targetImageId = targetElement.dataset.image;
+                const targetSide = targetElement.dataset.side;
+
+                // --- 1. HANDLE IMAGE SWAP ---
+                // Deactivate all images
+                images.forEach(img => img.classList.remove('active'));
+
+                // Activate the new image
+                const newActiveImage = document.getElementById(`image-${targetImageId}`);
+                if (newActiveImage) {
+                    newActiveImage.classList.add('active');
+                }
+
+                // --- 2. HANDLE TEXT CONTENT UPDATE ---
+                // Update the text in the overlay with the current trigger section's content
+                textOverlay.innerHTML = targetElement.innerHTML;
+
+
+                // --- 3. HANDLE LAYOUT FLIP (CSS CLASS) ---
+                if (targetSide === 'right') {
+                    // Image on the RIGHT (Text on the LEFT)
+                    stickyContainer.classList.add('image-right');
+                } else {
+                    // Image on the LEFT (Default)
+                    stickyContainer.classList.remove('image-right');
+                }
+            }
+        });
+    }, options);
+
+    // Start observing all six trigger sections
+    triggerSections.forEach(section => {
+        observer.observe(section);
+    });
+});
+
 
