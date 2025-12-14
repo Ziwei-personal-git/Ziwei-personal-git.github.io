@@ -89,9 +89,11 @@ document.addEventListener('DOMContentLoaded', () => {
         
         textOverlay.classList.add('fading-out');
 
+        window.removeEventListener('scroll', parallaxScrollHandler);
+
         const currentImage = document.querySelector('#image-display img.active');
         if (currentImage) {
-            currentImage.style.transform = '';
+            currentImage.style.transform = currentImage.style.transform;
             currentImage.classList.add('zoom-out-blur');
             currentImage.classList.remove('active');
         }
@@ -102,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (currentImage) {
                 currentImage.classList.remove('zoom-out-blur');
                 currentImage.style.opacity = '0';
-                currentImage.style.transform = 'translateY(-7.5%)'; 
+                currentImage.style.transform = ''; 
                 currentImage.style.filter = '';
             }
             
@@ -112,8 +114,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 newActiveImage.classList.add('active');
                 activeImage = newActiveImage; 
             }
-            
-            // --- Text Fade In ---
+            window.addEventListener('scroll', parallaxScrollHandler);
+            parallaxScrollHandler(); 
+
             setTimeout(() => {
                 textOverlay.classList.remove('fading-out');
             }, 10); 
@@ -177,24 +180,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // ----------------------------------------------------
     
     const parallaxScrollHandler = () => {
-        if (!currentActiveSection) {
-             if (activeImage) {
-                activeImage.style.transform = 'translateY(-7.5%)'; 
-             }
-             return; 
-        }
-
-        const targetSection = currentActiveSection; 
-        const rect = targetSection.getBoundingClientRect();
-        const sectionHeight = targetSection.offsetHeight;
-        const progress = (window.innerHeight - rect.top) / (window.innerHeight + sectionHeight);
-        const scrollProgress = Math.max(0, Math.min(1, progress));
+        
+        const scrollContainer = document.querySelector('.scroll-container');
+        const scrollContainerRect = scrollContainer.getBoundingClientRect();
+        const startOffset = window.innerHeight; 
+        const totalScrollLength = scrollContainer.offsetHeight + window.innerHeight;
+        const maxScroll = totalScrollLength - window.innerHeight; 
+        const scrollProgress = Math.min(1, Math.max(0, window.scrollY / maxScroll)); 
         const totalMovement = 15; 
         const yMovement = (scrollProgress * totalMovement) * -1; 
-        const zoomScale = 1 + (scrollProgress * 0.15); 
-        const blurAmount = scrollProgress * 10; 
-        const opacityValue = 1 - scrollProgress; 
-
+        const zoomScale = 3 - (scrollProgress * 2); 
+        
         if (activeImage) {
             activeImage.style.transform = `translateY(${yMovement}%) scale(${zoomScale})`;
         }
