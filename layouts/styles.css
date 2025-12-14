@@ -257,6 +257,11 @@ header {
     opacity: 0; 
     padding: 0;
 }
+
+.sticky-content.full-width #image-display img.active {
+    object-fit: contain; 
+}
+
 .sticky-content.image-right #image-display {
     order: 2; 
 }
