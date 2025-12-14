@@ -103,24 +103,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 const targetImageId = targetElement.dataset.image;
                 const targetSide = targetElement.dataset.side;
 
-                // 1. HANDLE LAYOUT FLIP (Smoothly animates via CSS 'order' property)
                 if (targetSide === 'right') {
                     stickyContainer.classList.add('image-right');
                 } else {
                     stickyContainer.classList.remove('image-right');
                 }
+                textOverlay.classList.add('fading-out');
 
-                // 2. HANDLE TEXT CONTENT UPDATE
-                textOverlay.innerHTML = targetElement.innerHTML;
-
-
-                // 3. HANDLE IMAGE SWAP (Smooth opacity change)
-                images.forEach(img => img.classList.remove('active'));
-
-                const newActiveImage = document.getElementById(`image-${targetImageId}`);
-                if (newActiveImage) {
-                    newActiveImage.classList.add('active');
-                }
+                setTimeout(() =>{
+                    textOverlay.innerHTML = targetElement.innerHTML;
+                    images.forEach(img => img.classList.remove('active'));
+                    const newActiveImage = document.getElementById(`image-${targetImageId}`);
+                    if (newActiveImage) {
+                        newActiveImage.classList.add('active');
+                    }
+                    setTimeout(() => {
+                        textOverlay.classList.remove('fading-out');
+                    }, 10);
+                },500);
             }
         });
     }, options);
