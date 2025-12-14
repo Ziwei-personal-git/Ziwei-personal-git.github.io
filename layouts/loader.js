@@ -96,13 +96,21 @@ document.addEventListener('DOMContentLoaded', () => {
         threshold: 0
     };
     const transitionDuration = 500;
+    if (textOverlay) {
+        textOverlay.classList.add('fading-out'); 
+    }
+    let initialLoad = true;
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const targetElement = entry.target;
                 const targetImageId = targetElement.dataset.image;
                 const targetSide = targetElement.dataset.side;
-
+                if (initialLoad && targetImageId === '0') {
+                    initialLoad = false; 
+                    return; 
+                }
+                initialLoad = false;
                 if (targetSide === 'right') {
                     stickyContainer.classList.add('image-right');
                 } else {
