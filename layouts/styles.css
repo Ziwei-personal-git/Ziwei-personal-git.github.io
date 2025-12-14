@@ -186,6 +186,13 @@ header {
     flex-direction: row; 
 }
 
+#sticky-container {
+  
+    height: 100vh;
+    max-height: 850px;  
+    min-height: 500px; 
+}
+
 /* --- Default Layout (Image Left, Text Right) --- */
 #image-display {
     flex: 7; 
@@ -215,7 +222,7 @@ header {
     transform: translateY(0); 
     transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
     overflow-y: auto;
-    max-height: 90vh; 
+    max-height: 90%; 
     padding-right: 15px; 
     width: 100%; 
 }
