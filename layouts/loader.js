@@ -88,6 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const imageDisplay = document.getElementById('image-display');
     const images = imageDisplay.querySelectorAll('img');
     const textOverlay = document.getElementById('text-overlay');
+    const initialTextContent = textOverlay.innerHTML;
     const triggerSections = document.querySelectorAll('.trigger-section');
 
     let currentActiveSection = null; 
@@ -127,9 +128,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
+            const targetElement = entry.target;
+
             if (entry.isIntersecting) {
-                applyState(entry.target);
-                currentActiveSection = entry.target; 
+                applyState(targetElement);
+                currentActiveSection = targetElement;
+            } else {
+                if (targetElement.dataset.image === "2" && targetElement === currentActiveSection) {
+                    
+                    images.forEach(img => img.classList.remove('active'));
+                    const initialImage = document.getElementById('image-1');
+                    if (initialImage) {
+                        initialImage.classList.add('active');
+                    }
+                    
+                    textOverlay.classList.add('fading-out');
+                    setTimeout(() => {
+                        textOverlay.innerHTML = initialTextContent; 
+                        setTimeout(() => {
+                            textOverlay.classList.remove('fading-out');
+                        }, 10);
+                    }, 500);
+
+                    currentActiveSection = null; 
+                    stickyContainer.classList.remove('image-right'); 
+                }
             }
         });
     }, options);
