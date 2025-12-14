@@ -182,18 +182,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const parallaxScrollHandler = () => {
         
         const scrollContainer = document.querySelector('.scroll-container');
+        if (!scrollContainer || !activeImage) return;
         const scrollContainerRect = scrollContainer.getBoundingClientRect();
+        const containerHeight = scrollContainer.offsetHeight;
         const startOffset = window.innerHeight; 
-        const totalScrollLength = scrollContainer.offsetHeight + window.innerHeight;
-        const maxScroll = totalScrollLength - window.innerHeight; 
-        const scrollProgress = Math.min(1, Math.max(0, window.scrollY / maxScroll)); 
+        const startScroll = containerHeight + scrollContainerRect.top - windowHeight;
+        const endScroll = containerHeight + scrollContainerRect.top;
+        const totalScrollLength = endScroll - startScroll;
+        const currentScroll = -scrollContainerRect.top;
+        const scrollProgress = Math.min(1, Math.max(0, currentScroll / (totalScrollLength)));
         const totalMovement = 15; 
-        const yMovement = (scrollProgress * totalMovement) * -1; 
+        const totalZoom = 2;
+        const yMovement = (scrollProgress * totalMovement) * -1;
         const zoomScale = 3 - (scrollProgress * 2); 
         
-        if (activeImage) {
-            activeImage.style.transform = `translateY(${yMovement}%) scale(${zoomScale})`;
-        }
+        activeImage.style.transform = `translateY(${yMovement}%) scale(${zoomScale})`;
     };
     
     window.addEventListener('scroll', parallaxScrollHandler);
