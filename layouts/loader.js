@@ -91,6 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const currentImage = document.querySelector('#image-display img.active');
         if (currentImage) {
+            currentImage.style.transform = '';
             currentImage.classList.add('zoom-out-blur');
             currentImage.classList.remove('active');
         }
@@ -100,11 +101,14 @@ document.addEventListener('DOMContentLoaded', () => {
             
             if (currentImage) {
                 currentImage.classList.remove('zoom-out-blur');
+                currentImage.style.opacity = '0';
+                currentImage.style.transform = 'translateY(-7.5%)'; 
+                currentImage.style.filter = '';
             }
             
-            // Activate the new image
             const newActiveImage = document.getElementById(`image-${targetImageId}`);
             if (newActiveImage) {
+                newActiveImage.style.opacity = '';
                 newActiveImage.classList.add('active');
                 activeImage = newActiveImage; 
             }
@@ -128,6 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     const currentImage = document.querySelector('#image-display img.active');
                     if (currentImage) {
+                        currentImage.style.transform = '';
                         currentImage.classList.add('zoom-out-blur');
                         currentImage.classList.remove('active');
                     }
@@ -139,10 +144,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         
                         if (currentImage) {
                            currentImage.classList.remove('zoom-out-blur');
+                           currentImage.style.opacity = '0';
+                           currentImage.style.transform = 'translateY(-7.5%)';
+                           currentImage.style.filter = '';
                         }
                         
                         const initialImage = document.getElementById('image-1');
                         if (initialImage) {
+                            initialImage.style.opacity = '';
                             initialImage.classList.add('active');
                             activeImage = initialImage;
                         }
@@ -171,9 +180,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!currentActiveSection) {
              if (activeImage) {
                 activeImage.style.transform = 'translateY(-7.5%)'; 
-                activeImage.style.filter = 'blur(0px)';
-                activeImage.style.opacity = '1';
-                activeImage.style.transform = `translateY(-7.5%) scale(1)`; 
              }
              return; 
         }
@@ -191,8 +197,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (activeImage) {
             activeImage.style.transform = `translateY(${yMovement}%) scale(${zoomScale})`;
-            activeImage.style.filter = `blur(${blurAmount}px)`;
-            activeImage.style.opacity = opacityValue;
         }
     };
     

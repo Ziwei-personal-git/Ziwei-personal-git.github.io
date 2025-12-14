@@ -248,13 +248,12 @@ header {
 
 #image-display img.active {
     opacity: 1;
-    transform: translateY(-7.5%) scale(1);
     filter: blur(0px);
 }
 
 #image-display img.zoom-out-blur {
     opacity: 0;
-    transform: translateY(-7.5%) scale(1.15); 
+    transform: translateY(-7.5%) scale(3); 
     filter: blur(10px);
 }
 
