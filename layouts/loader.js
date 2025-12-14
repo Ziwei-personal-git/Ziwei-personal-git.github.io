@@ -131,10 +131,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 applyState(entry.target);
                 currentActiveSection = entry.target; 
             }
+        });
     }, options);
 
     triggerSections.forEach(section => {
         observer.observe(section);
     });
 });
-})
+
