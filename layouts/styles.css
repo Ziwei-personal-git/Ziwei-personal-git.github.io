@@ -257,6 +257,10 @@ header {
     filter: blur(10px);
 }
 
+.sticky-content.full-width #image-display {
+    flex: 7; 
+}
+
 .sticky-content.image-right #image-display {
     order: 2; 
 }
