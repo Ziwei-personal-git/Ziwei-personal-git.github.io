@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
         rootMargin: '0px 0px -50% 0px', 
         threshold: 0
     };
-
+    const transitionDuration = 500;
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -111,16 +111,41 @@ document.addEventListener('DOMContentLoaded', () => {
                 textOverlay.classList.add('fading-out');
 
                 setTimeout(() =>{
-                    textOverlay.innerHTML = targetElement.innerHTML;
+                    if (targetSide === 'full') {
+                        stickyContainer.classList.add('full-width');
+                        stickyContainer.classList.remove('image-right'); 
+                        
+                        if (textOverlay) {
+                            textOverlay.innerHTML = ''; 
+                        }
+                    } else {
+                        stickyContainer.classList.remove('full-width');
+                        
+                        if (targetSide === 'right') {
+                            stickyContainer.classList.add('image-right');
+                        } else {
+                            stickyContainer.classList.remove('image-right');
+                        }
+                        
+                        if (textOverlay) {
+                            textOverlay.innerHTML = targetElement.innerHTML;
+                        }
+                    }
+                    
                     images.forEach(img => img.classList.remove('active'));
+
                     const newActiveImage = document.getElementById(`image-${targetImageId}`);
                     if (newActiveImage) {
                         newActiveImage.classList.add('active');
                     }
-                    setTimeout(() => {
-                        textOverlay.classList.remove('fading-out');
-                    }, 10);
-                },500);
+
+                    if (textOverlay) {
+                        setTimeout(() => {
+                            textOverlay.classList.remove('fading-out');
+                        }, 10);
+                    }
+                    
+                }, transitionDuration); 
             }
         });
     }, options);

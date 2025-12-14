@@ -167,7 +167,7 @@ header {
 
 /* --- Base Scroll and Sticky Setup --- */
 .scroll-container {
-    height: 600vh; 
+    height: 700vh; 
 }
 
 .sticky-wrapper {
@@ -206,7 +206,8 @@ header {
     box-sizing: border-box;
     color: #333;
     text-align: left;
-    /* overflow-y: auto; */
+    transition: flex 0.7s ease-in-out, opacity 0.7s ease-in-out; 
+    overflow-y: hidden;
 }
 
 #text-overlay {
@@ -247,6 +248,15 @@ header {
     opacity: 1;
 }
 
+.sticky-content.full-width #image-display {
+    flex: 5; 
+}
+
+.sticky-content.full-width #text-column {
+    flex: 0; 
+    opacity: 0; 
+    padding: 0;
+}
 .sticky-content.image-right #image-display {
     order: 2; 
 }
@@ -262,10 +272,6 @@ header {
     position: relative;
     z-index: 5;
     opacity: 0;
-    /* padding-top: 50vh; 
-    padding-left: 10%;
-    padding-right: 10%;
-    text-align: center; */
 }
 
 /* Responsive design for smaller screens */
