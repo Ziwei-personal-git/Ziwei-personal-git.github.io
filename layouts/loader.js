@@ -95,22 +95,13 @@ document.addEventListener('DOMContentLoaded', () => {
         rootMargin: '0px 0px -50% 0px', 
         threshold: 0
     };
-    const transitionDuration = 500;
-    if (textOverlay) {
-        textOverlay.classList.add('fading-out'); 
-    }
-    let initialLoad = true;
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const targetElement = entry.target;
                 const targetImageId = targetElement.dataset.image;
                 const targetSide = targetElement.dataset.side;
-                if (initialLoad && targetImageId === '0') {
-                    initialLoad = false; 
-                    return; 
-                }
-                initialLoad = false;
+
                 if (targetSide === 'right') {
                     stickyContainer.classList.add('image-right');
                 } else {
@@ -119,41 +110,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 textOverlay.classList.add('fading-out');
 
                 setTimeout(() =>{
-                    if (targetSide === 'full') {
-                        stickyContainer.classList.add('full-width');
-                        stickyContainer.classList.remove('image-right'); 
-                        
-                        if (textOverlay) {
-                            textOverlay.innerHTML = ''; 
-                        }
-                    } else {
-                        stickyContainer.classList.remove('full-width');
-                        
-                        if (targetSide === 'right') {
-                            stickyContainer.classList.add('image-right');
-                        } else {
-                            stickyContainer.classList.remove('image-right');
-                        }
-                        
-                        if (textOverlay) {
-                            textOverlay.innerHTML = targetElement.innerHTML;
-                        }
-                    }
-                    
+                    textOverlay.innerHTML = targetElement.innerHTML;
                     images.forEach(img => img.classList.remove('active'));
-
                     const newActiveImage = document.getElementById(`image-${targetImageId}`);
                     if (newActiveImage) {
                         newActiveImage.classList.add('active');
                     }
-
-                    if (textOverlay) {
-                        setTimeout(() => {
-                            textOverlay.classList.remove('fading-out');
-                        }, 10);
-                    }
-                    
-                }, transitionDuration); 
+                    setTimeout(() => {
+                        textOverlay.classList.remove('fading-out');
+                    }, 10);
+                },500);
             }
         });
     }, options);
