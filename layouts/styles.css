@@ -167,7 +167,7 @@ header {
 
 /* --- Base Scroll and Sticky Setup --- */
 .scroll-container {
-    height: 320vh; 
+    height: 300vh; 
 }
 
 .sticky-wrapper {
@@ -270,9 +270,6 @@ header {
     pointer-events: none;
 }
 
-.trigger-section.short-trigger {
-    height: 20vh; 
-}
 
 /* Responsive design for smaller screens */
 @media (max-width: 768px) {
