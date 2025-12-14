@@ -17,9 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
     loadHTML('/layouts/footnote.html', 'footnote-placeholder');
 
     // ----------------------------------------------------
-    // START: List Numbering Handlers
+    // List Numbering Handlers
     // ----------------------------------------------------
-    // Article number counting
     const articleItems = document.querySelectorAll('#publication-list .publication-group li');
     const totalArticleItems = articleItems.length;
 
@@ -31,68 +30,47 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Books number counting
     const bookChapterItems = document.querySelectorAll('#book-chaptors-list li');
     const totalBookChapterItems = bookChapterItems.length;
-    
-    if (totalBookChapterItems > 0) {
-        bookChapterItems.forEach((item, index) => {
-            const reversedNumber = totalBookChapterItems - index;
-            const numberSpan = item.querySelector('.list-number');
-            if (numberSpan) {
-                numberSpan.textContent = reversedNumber + '.';
-            }
-        });
-    }
 
-    // Patents number counting
-    const patentItems = document.querySelectorAll('#patents-list li');
-    const totalPatentItems = patentItems.length;
-    
-    if (totalPatentItems > 0) {
-        patentItems.forEach((item, index) => {
-            const reversedNumber = totalPatentItems - index;
-
-            const numberSpan = item.querySelector('.list-number');
-
-            if (numberSpan) {
-                numberSpan.textContent = reversedNumber + '.';
-            }
-        });
-    }
-
-    // ----------------------------------------------------
-    // START: Collapsible Section Handlers
-    // ----------------------------------------------------
-    const triggers = document.querySelectorAll('.collapsed-header');
-
-    triggers.forEach(trigger => {
-        trigger.addEventListener('click', () => {
-            const targetId = trigger.getAttribute('data-year');
-            const targetGroup = document.getElementById(targetId);
-
-            if (targetGroup) {
-                targetGroup.classList.toggle('collapsed');
-                trigger.classList.toggle('active');
-
-                const isExpanded = !targetGroup.classList.contains('collapsed');
-                trigger.setAttribute('aria-expanded', isExpanded);
-            }
-        });
+    bookChapterItems.forEach((item, index) => {
+        const reversedNumber = totalBookChapterItems - index;
+        const numberSpan = item.querySelector('.list-number');
+        if (numberSpan) {
+            numberSpan.textContent = reversedNumber + '.';
+        }
     });
 
     // ----------------------------------------------------
-    // START: Scroll-Triggered Layout Handler
+    // Collapsible Section Handlers
+    // ----------------------------------------------------
+    const collapsibles = document.querySelectorAll('.collapsible-header');
+    collapsibles.forEach(header => {
+        header.addEventListener('click', () => {
+            const content = header.nextElementSibling;
+            header.classList.toggle('active');
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            } 
+        });
+    });
+    
+    // ----------------------------------------------------
+    // Scroll-Triggered Layout Handler
     // ----------------------------------------------------
     const stickyContainer = document.getElementById('sticky-container');
     const imageDisplay = document.getElementById('image-display');
     const images = imageDisplay.querySelectorAll('img');
     const textOverlay = document.getElementById('text-overlay');
-    const initialTextContent = textOverlay.innerHTML;
+    
+    const initialTextContent = textOverlay.innerHTML; 
+    
     const triggerSections = document.querySelectorAll('.trigger-section');
 
     let currentActiveSection = null; 
-
+    let activeImage = document.getElementById('image-1'); 
     const options = {
         root: null,
         rootMargin: '0px 0px -50% 0px', 
@@ -118,6 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const newActiveImage = document.getElementById(`image-${targetImageId}`);
             if (newActiveImage) {
                 newActiveImage.classList.add('active');
+                activeImage = newActiveImage; 
             }
             
             setTimeout(() => {
@@ -140,18 +119,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     const initialImage = document.getElementById('image-1');
                     if (initialImage) {
                         initialImage.classList.add('active');
+                        activeImage = initialImage;
+                        activeImage.style.transform = 'translateY(-7.5%)'; 
                     }
                     
                     textOverlay.classList.add('fading-out');
                     setTimeout(() => {
-                        textOverlay.innerHTML = initialTextContent; 
+                        textOverlay.innerHTML = initialTextContent;
                         setTimeout(() => {
                             textOverlay.classList.remove('fading-out');
                         }, 10);
                     }, 500);
 
                     currentActiveSection = null; 
-                    stickyContainer.classList.remove('image-right'); 
+                    stickyContainer.classList.remove('image-right');
                 }
             }
         });
@@ -160,5 +141,33 @@ document.addEventListener('DOMContentLoaded', () => {
     triggerSections.forEach(section => {
         observer.observe(section);
     });
-});
 
+    // ----------------------------------------------------
+    // Parallax Image Movement Handler
+    // ----------------------------------------------------
+    
+    const parallaxScrollHandler = () => {
+        if (!currentActiveSection) {
+             if (activeImage) {
+                activeImage.style.transform = 'translateY(-7.5%)'; 
+             }
+             return; 
+        }
+
+        const targetSection = currentActiveSection; 
+        const rect = targetSection.getBoundingClientRect();
+        const sectionHeight = targetSection.offsetHeight;
+        const progress = (window.innerHeight - rect.top) / (window.innerHeight + sectionHeight);
+        const scrollProgress = Math.max(0, Math.min(1, progress));
+        const totalMovement = 15; 
+        const yMovement = (scrollProgress * totalMovement) * -1; 
+        
+        if (activeImage) {
+            activeImage.style.transform = `translateY(${yMovement}%)`; 
+        }
+    };
+    
+    window.addEventListener('scroll', parallaxScrollHandler);
+    
+    parallaxScrollHandler();
+});
