@@ -171,6 +171,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!currentActiveSection) {
              if (activeImage) {
                 activeImage.style.transform = 'translateY(-7.5%)'; 
+                activeImage.style.filter = 'blur(0px)';
+                activeImage.style.opacity = '1';
+                activeImage.style.transform = `translateY(-7.5%) scale(1)`; 
              }
              return; 
         }
@@ -182,9 +185,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const scrollProgress = Math.max(0, Math.min(1, progress));
         const totalMovement = 15; 
         const yMovement = (scrollProgress * totalMovement) * -1; 
-        
+        const zoomScale = 1 + (scrollProgress * 0.15); 
+        const blurAmount = scrollProgress * 10; 
+        const opacityValue = 1 - scrollProgress; 
+
         if (activeImage) {
-            activeImage.style.transform = `translateY(${yMovement}%)`; 
+            activeImage.style.transform = `translateY(${yMovement}%) scale(${zoomScale})`;
+            activeImage.style.filter = `blur(${blurAmount}px)`;
+            activeImage.style.opacity = opacityValue;
         }
     };
     
