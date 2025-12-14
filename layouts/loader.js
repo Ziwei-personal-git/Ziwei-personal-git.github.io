@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
         rootMargin: '0px 0px -50% 0px', 
         threshold: 0
     };
-    
+
     const applyState = (targetElement) => {
         const targetImageId = targetElement.dataset.image;
         const targetSide = targetElement.dataset.side;
@@ -89,20 +89,31 @@ document.addEventListener('DOMContentLoaded', () => {
         
         textOverlay.classList.add('fading-out');
 
+        const currentImage = document.querySelector('#image-display img.active');
+        if (currentImage) {
+            currentImage.classList.add('zoom-out-blur');
+            currentImage.classList.remove('active');
+        }
+
         setTimeout(() => {
             textOverlay.innerHTML = targetElement.innerHTML;
             
-            images.forEach(img => img.classList.remove('active'));
+            if (currentImage) {
+                currentImage.classList.remove('zoom-out-blur');
+            }
+            
+            // Activate the new image
             const newActiveImage = document.getElementById(`image-${targetImageId}`);
             if (newActiveImage) {
                 newActiveImage.classList.add('active');
                 activeImage = newActiveImage; 
             }
             
+            // --- Text Fade In ---
             setTimeout(() => {
                 textOverlay.classList.remove('fading-out');
-            }, 10);
-        }, 500);
+            }, 10); 
+        }, 700); 
     };
 
     const observer = new IntersectionObserver((entries, observer) => {
@@ -115,29 +126,39 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 if (targetElement.dataset.image === "2" && targetElement === currentActiveSection) {
                     
-                    images.forEach(img => img.classList.remove('active'));
-                    const initialImage = document.getElementById('image-1');
-                    if (initialImage) {
-                        initialImage.classList.add('active');
-                        activeImage = initialImage;
-                        activeImage.style.transform = 'translateY(-7.5%)'; 
+                    const currentImage = document.querySelector('#image-display img.active');
+                    if (currentImage) {
+                        currentImage.classList.add('zoom-out-blur');
+                        currentImage.classList.remove('active');
                     }
                     
                     textOverlay.classList.add('fading-out');
+                    
                     setTimeout(() => {
                         textOverlay.innerHTML = initialTextContent;
+                        
+                        if (currentImage) {
+                           currentImage.classList.remove('zoom-out-blur');
+                        }
+                        
+                        const initialImage = document.getElementById('image-1');
+                        if (initialImage) {
+                            initialImage.classList.add('active');
+                            activeImage = initialImage;
+                        }
+                        
                         setTimeout(() => {
                             textOverlay.classList.remove('fading-out');
                         }, 10);
-                    }, 500);
-
+                        
+                    }, 700); 
+                    
                     currentActiveSection = null; 
                     stickyContainer.classList.remove('image-right');
                 }
             }
         });
     }, options);
-
     triggerSections.forEach(section => {
         observer.observe(section);
     });
