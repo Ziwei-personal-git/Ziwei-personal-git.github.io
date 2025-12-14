@@ -90,44 +90,51 @@ document.addEventListener('DOMContentLoaded', () => {
     const textOverlay = document.getElementById('text-overlay');
     const triggerSections = document.querySelectorAll('.trigger-section');
 
+    let currentActiveSection = null; 
+
     const options = {
         root: null,
         rootMargin: '0px 0px -50% 0px', 
         threshold: 0
     };
+    
+    const applyState = (targetElement) => {
+        const targetImageId = targetElement.dataset.image;
+        const targetSide = targetElement.dataset.side;
+
+        if (targetSide === 'right') {
+            stickyContainer.classList.add('image-right');
+        } else {
+            stickyContainer.classList.remove('image-right');
+        }
+        
+        textOverlay.classList.add('fading-out');
+
+        setTimeout(() => {
+            textOverlay.innerHTML = targetElement.innerHTML;
+            
+            images.forEach(img => img.classList.remove('active'));
+            const newActiveImage = document.getElementById(`image-${targetImageId}`);
+            if (newActiveImage) {
+                newActiveImage.classList.add('active');
+            }
+            
+            setTimeout(() => {
+                textOverlay.classList.remove('fading-out');
+            }, 10);
+        }, 500);
+    };
+
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                const targetElement = entry.target;
-                const targetImageId = targetElement.dataset.image;
-                const targetSide = targetElement.dataset.side;
-
-                if (targetSide === 'right') {
-                    stickyContainer.classList.add('image-right');
-                } else {
-                    stickyContainer.classList.remove('image-right');
-                }
-                textOverlay.classList.add('fading-out');
-
-                setTimeout(() =>{
-                    textOverlay.innerHTML = targetElement.innerHTML;
-                    images.forEach(img => img.classList.remove('active'));
-                    const newActiveImage = document.getElementById(`image-${targetImageId}`);
-                    if (newActiveImage) {
-                        newActiveImage.classList.add('active');
-                    }
-                    setTimeout(() => {
-                        textOverlay.classList.remove('fading-out');
-                    }, 10);
-                },500);
+                applyState(entry.target);
+                currentActiveSection = entry.target; 
             }
-        });
     }, options);
 
-    // Start observing all six trigger sections
     triggerSections.forEach(section => {
-        if (section.id !== 'first-trigger') { 
-            observer.observe(section);
-        }
+        observer.observe(section);
     });
 });
+})
