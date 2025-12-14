@@ -126,6 +126,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Start observing all six trigger sections
     triggerSections.forEach(section => {
-        observer.observe(section);
+        if (section.id !== 'first-trigger') { 
+            observer.observe(section);
+        }
     });
 });
