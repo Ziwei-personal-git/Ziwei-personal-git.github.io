@@ -167,7 +167,7 @@ header {
 
 /* --- Base Scroll and Sticky Setup --- */
 .scroll-container {
-    height: 300vh; 
+    height: 600vh; 
 }
 
 .sticky-wrapper {
@@ -264,7 +264,7 @@ header {
 
 /* --- Trigger Sections (Creates the scroll depth) --- */
 .trigger-section {
-    height: 50vh;
+    height: 100vh;
     background: transparent;
     position: relative;
     z-index: 5;
