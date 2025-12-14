@@ -58,15 +58,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     // ----------------------------------------------------
-    // Scroll-Triggered Layout Handler
+    // Scroll-Triggered Layout Handler (Content Swapping Fix)
     // ----------------------------------------------------
     const stickyContainer = document.getElementById('sticky-container');
     const imageDisplay = document.getElementById('image-display');
-    const images = imageDisplay.querySelectorAll('img');
     const textOverlay = document.getElementById('text-overlay');
-    
-    const initialTextContent = textOverlay.innerHTML; 
-    
+    const dynamicContentArea = document.getElementById('dynamic-content-container');
+    const initialDynamicContent = dynamicContentArea ? dynamicContentArea.innerHTML : '';    
     const triggerSections = document.querySelectorAll('.trigger-section');
 
     let currentActiveSection = null; 
@@ -78,6 +76,10 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const applyState = (targetElement) => {
+        
+        const newDynamicElement = targetElement.querySelector('.dynamic-content-swap');
+        const newDynamicHTML = newDynamicElement ? newDynamicElement.innerHTML : '';
+        
         const targetImageId = targetElement.dataset.image;
         const targetSide = targetElement.dataset.side;
 
@@ -87,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
             stickyContainer.classList.remove('image-right');
         }
         
-        textOverlay.classList.add('fading-out');
+        dynamicContentArea.classList.add('fading-out');
 
         window.removeEventListener('scroll', parallaxScrollHandler);
 
@@ -99,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         setTimeout(() => {
-            textOverlay.innerHTML = targetElement.innerHTML;
+            dynamicContentArea.innerHTML = `<div class="dynamic-content-swap">${newDynamicHTML}</div>`;
             
             if (currentImage) {
                 currentImage.classList.remove('zoom-out-blur');
@@ -118,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
             parallaxScrollHandler(); 
 
             setTimeout(() => {
-                textOverlay.classList.remove('fading-out');
+                dynamicContentArea.classList.remove('fading-out');
             }, 10); 
         }, 700); 
     };
@@ -140,10 +142,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         currentImage.classList.remove('active');
                     }
                     
-                    textOverlay.classList.add('fading-out');
+                    dynamicContentArea.classList.add('fading-out');
                     
                     setTimeout(() => {
-                        textOverlay.innerHTML = initialTextContent;
+                        dynamicContentArea.innerHTML = initialDynamicContent;
                         
                         if (currentImage) {
                            currentImage.classList.remove('zoom-out-blur');
@@ -160,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                         
                         setTimeout(() => {
-                            textOverlay.classList.remove('fading-out');
+                            dynamicContentArea.classList.remove('fading-out');
                         }, 10);
                         
                     }, 700); 
@@ -176,23 +178,27 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ----------------------------------------------------
-    // Parallax Image Movement Handler
+    // Parallax Image Movement Handler (Localized Fix)
     // ----------------------------------------------------
     
     const parallaxScrollHandler = () => {
         
         const scrollContainer = document.querySelector('.scroll-container');
         if (!scrollContainer || !activeImage) return;
+        
         const scrollContainerRect = scrollContainer.getBoundingClientRect();
         const containerHeight = scrollContainer.offsetHeight;
-        const startOffset = window.innerHeight; 
+        const windowHeight = window.innerHeight;
+        
         const startScroll = containerHeight + scrollContainerRect.top - windowHeight;
         const endScroll = containerHeight + scrollContainerRect.top;
         const totalScrollLength = endScroll - startScroll;
+        
         const currentScroll = -scrollContainerRect.top;
+        
         const scrollProgress = Math.min(1, Math.max(0, currentScroll / (totalScrollLength)));
+        
         const totalMovement = 15; 
-        const totalZoom = 2;
         const yMovement = (scrollProgress * totalMovement) * -1;
         const zoomScale = 3 - (scrollProgress * 2); 
         
