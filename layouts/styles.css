@@ -198,7 +198,8 @@ header {
 
 /* --- Default Layout (Image Left, Text Right) --- */
 #image-display {
-    flex: 7; 
+    flex: 7;
+    max-width: 100%; 
     order: 1;
     position: relative;
     height: 100%;
@@ -258,10 +259,6 @@ header {
     opacity: 0;
     transform: translateY(-7.5%) scale(3); 
     filter: blur(10px);
-}
-
-.sticky-content.full-width #image-display {
-    flex: 7; 
 }
 
 .sticky-content.image-right #image-display {
