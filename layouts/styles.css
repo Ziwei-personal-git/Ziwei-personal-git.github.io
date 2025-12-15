@@ -203,7 +203,9 @@ header {
     order: 1;
     position: relative;
     height: 100%;
-    transition: flex 0.7s ease-in-out;
+    transform: translateX(0%);
+    transition: transform 0.7s ease-in-out, opacity 0.7s ease-in-out;
+    z-index: 1;
 }
 
 #text-column {
@@ -217,9 +219,11 @@ header {
     box-sizing: border-box;
     color: #333;
     text-align: left;
-    transition: flex 0.7s ease-in-out, opacity 0.7s ease-in-out, padding 0.7s ease-in-out; 
     overflow-y: hidden;
     min-height: 200px;
+    transform: translateX(0%);
+    transition: transform 0.7s ease-in-out;
+    z-index: 2;
 }
 
 #text-overlay {

@@ -125,15 +125,28 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 500); 
     };
 
-    const observer = new IntersectionObserver((entries, observer) => {
+    const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             const targetElement = entry.target;
+            const targetImageId = 'image-' + currentElement.dataset.image;
+            const targetImageElement = document.getElementById(targetImageId);
 
             if (entry.isIntersecting) {
-                applyState(targetElement);
-                currentActiveSection = targetElement;
-            } else {
-                if (targetElement.dataset.image === "2" && targetElement === currentActiveSection) {
+                
+                const imageIndex = parseInt(currentElement.dataset.image);
+                const shouldBeRight = imageIndex % 2 === 0;
+
+                if (shouldBeRight) {
+                    stickyContainer.classList.add('image-right');
+                } else {
+                    stickyContainer.classList.remove('image-right');
+                }
+                
+                applyState(targetImageElement);
+                currentActiveSection = targetImageElement; 
+
+            } else {                
+                if (currentElement.dataset.image === "2" && currentElement === currentActiveSection) {
                     
                     const currentImage = document.querySelector('#image-display img.active');
                     if (currentImage) {
@@ -144,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     dynamicContentArea.classList.add('fading-out');
                     
-                    setTimeout(() => {
+                    setTimeout(() => { 
                         dynamicContentArea.innerHTML = initialDynamicContent;
                         
                         if (currentImage) {
@@ -168,7 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }, 500); 
                     
                     currentActiveSection = null; 
-                    stickyContainer.classList.remove('image-right');
+                    stickyContainer.classList.remove('image-right'); 
                 }
             }
         });
