@@ -268,11 +268,25 @@ header {
 }
 
 .sticky-content.image-right #image-display {
-    order: unset; 
+    order: 2; 
 }
 
 .sticky-content.image-right #text-column {
-    order: unset; 
+    order: 1; 
+}
+
+.sticky-content.slide-left #image-display {
+    transform: translateX(-100%); /* Start image off-screen left */
+}
+.sticky-content.slide-left #text-column {
+    transform: translateX(100%); /* Start text off-screen right */
+}
+
+.sticky-content.image-right.slide-right #image-display {
+    transform: translateX(100%); /* Start image off-screen right */
+}
+.sticky-content.image-right.slide-right #text-column {
+    transform: translateX(-100%); /* Start text off-screen left */
 }
 
 /* --- Trigger Sections (Creates the scroll depth) --- */
@@ -300,11 +314,5 @@ header {
     .content {
         padding-left: 0;
         padding-top: 20px;
-    }
-    .sticky-content.image-right #image-display {
-        transform: translateX(42.857%);
-    }
-    .sticky-content.image-right #text-column {
-        transform: translateX(-233.333%);
     }
 }

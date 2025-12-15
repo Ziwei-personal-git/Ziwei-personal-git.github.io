@@ -58,131 +58,85 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     // ----------------------------------------------------
-    // Scroll-Triggered Layout Handler (Content Swapping Fix)
+    // Scroll-Triggered Layout Handler
     // ----------------------------------------------------
     const stickyContainer = document.getElementById('sticky-container');
-    const imageDisplay = document.getElementById('image-display');
-    const textOverlay = document.getElementById('text-overlay');
     const dynamicContentArea = document.getElementById('dynamic-content-container');
-    const initialDynamicContent = dynamicContentArea ? dynamicContentArea.innerHTML : '';    
-    const triggerSections = document.querySelectorAll('.trigger-section');
+    const initialContent = document.querySelector('.trigger-section[data-image="1"] .dynamic-content-swap') ? 
+                           document.querySelector('.trigger-section[data-image="1"] .dynamic-content-swap').innerHTML :
+                           document.querySelector('#text-overlay .dynamic-content-swap') ?
+                           document.querySelector('#text-overlay .dynamic-content-swap').innerHTML : '';
+                           
+    const initialImageId = 'image-1';
 
-    let currentActiveSection = null; 
-    let activeImage = document.getElementById('image-1'); 
+    let currentImageElement = document.getElementById(initialImageId);
+    let currentContentHTML = initialContent;
+    let currentImageIndex = 1;
+    
+    // Set initial state
+    if (currentImageElement) {
+        currentImageElement.classList.add('active');
+    }
+
+    const updateContentAndLayout = (targetIndex, targetContentHTML) => {
+        
+        stickyContainer.classList.remove('slide-left', 'slide-right');
+        
+        const isImageRight = targetIndex % 2 === 0;
+        
+        if (isImageRight) {
+            stickyContainer.classList.add('image-right');
+            stickyContainer.classList.add('slide-right');
+        } else {
+            stickyContainer.classList.remove('image-right');
+            stickyContainer.classList.add('slide-left');
+        }
+        
+        const targetImageId = `image-${targetIndex}`;
+        const targetImageElement = document.getElementById(targetImageId);
+        
+        if (currentImageElement) {
+            currentImageElement.classList.remove('active');
+        }
+        
+        setTimeout(() => {
+            
+            dynamicContentArea.innerHTML = `<div class="dynamic-content-swap">${targetContentHTML}</div>`;
+            
+            if (targetImageElement) {
+                targetImageElement.classList.add('active');
+                currentImageElement = targetImageElement;
+            }
+            currentImageIndex = targetIndex;
+            currentContentHTML = targetContentHTML;
+
+            setTimeout(() => {
+                stickyContainer.classList.remove('slide-left', 'slide-right');
+            }, 50); 
+            
+        }, 500); 
+    };
+
+    const triggerSections = document.querySelectorAll('.trigger-section');
     const options = {
         root: null,
         rootMargin: '0px 0px -50% 0px', 
         threshold: 0
     };
 
-    const applyState = (targetElement) => {
-        
-        const newDynamicElement = targetElement.querySelector('.dynamic-content-swap');
-        const newDynamicHTML = newDynamicElement ? newDynamicElement.innerHTML : '';
-        
-        const targetImageId = targetElement.dataset.image;
-        const targetSide = targetElement.dataset.side;
-
-        if (targetSide === 'right') {
-            stickyContainer.classList.add('image-right');
-        } else {
-            stickyContainer.classList.remove('image-right');
-        }
-        
-        dynamicContentArea.classList.add('fading-out');
-
-        window.removeEventListener('scroll', parallaxScrollHandler);
-
-        const currentImage = document.querySelector('#image-display img.active');
-        if (currentImage) {
-            currentImage.style.transform = currentImage.style.transform;
-            currentImage.classList.add('zoom-out-blur');
-            currentImage.classList.remove('active');
-        }
-
-        setTimeout(() => {
-            dynamicContentArea.innerHTML = `<div class="dynamic-content-swap">${newDynamicHTML}</div>`;
-            
-            if (currentImage) {
-                currentImage.classList.remove('zoom-out-blur');
-                currentImage.style.opacity = '0';
-                currentImage.style.transform = ''; 
-                currentImage.style.filter = '';
-            }
-            
-            const newActiveImage = document.getElementById(`image-${targetImageId}`);
-            if (newActiveImage) {
-                newActiveImage.style.opacity = '';
-                newActiveImage.classList.add('active');
-                activeImage = newActiveImage; 
-            }
-            window.addEventListener('scroll', parallaxScrollHandler);
-            parallaxScrollHandler(); 
-
-            setTimeout(() => {
-                dynamicContentArea.classList.remove('fading-out');
-            }, 50); 
-        }, 500); 
-    };
-
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             const targetElement = entry.target;
-            const targetImageId = 'image-' + currentElement.dataset.image;
-            const targetImageElement = document.getElementById(targetImageId);
+            const targetIndex = parseInt(targetElement.dataset.image);
+            const targetContent = targetElement.querySelector('.dynamic-content-swap').innerHTML;
 
-            if (entry.isIntersecting) {
-                
-                const imageIndex = parseInt(currentElement.dataset.image);
-                const shouldBeRight = imageIndex % 2 === 0;
-
-                if (shouldBeRight) {
-                    stickyContainer.classList.add('image-right');
-                } else {
-                    stickyContainer.classList.remove('image-right');
-                }
-                
-                applyState(targetImageElement);
-                currentActiveSection = targetImageElement; 
-
-            } else {                
-                if (currentElement.dataset.image === "2" && currentElement === currentActiveSection) {
-                    
-                    const currentImage = document.querySelector('#image-display img.active');
-                    if (currentImage) {
-                        currentImage.style.transform = '';
-                        currentImage.classList.add('zoom-out-blur');
-                        currentImage.classList.remove('active');
-                    }
-                    
-                    dynamicContentArea.classList.add('fading-out');
-                    
-                    setTimeout(() => { 
-                        dynamicContentArea.innerHTML = initialDynamicContent;
-                        
-                        if (currentImage) {
-                           currentImage.classList.remove('zoom-out-blur');
-                           currentImage.style.opacity = '0';
-                           currentImage.style.transform = 'translateY(-7.5%)';
-                           currentImage.style.filter = '';
-                        }
-                        
-                        const initialImage = document.getElementById('image-1');
-                        if (initialImage) {
-                            initialImage.style.opacity = '';
-                            initialImage.classList.add('active');
-                            activeImage = initialImage;
-                        }
-                        
-                        setTimeout(() => {
-                            dynamicContentArea.classList.remove('fading-out');
-                        }, 10);
-                        
-                    }, 500); 
-                    
-                    currentActiveSection = null; 
-                    stickyContainer.classList.remove('image-right'); 
-                }
+            if (entry.isIntersecting && targetIndex !== currentImageIndex) {
+                updateContentAndLayout(targetIndex, targetContent);
+            }
+            else if (!entry.isIntersecting && targetIndex === 2 && entry.boundingClientRect.top > 0 && currentImageIndex === 2) {
+                 const firstTrigger = document.querySelector('.trigger-section[data-image="1"]');
+                 const firstImageContent = firstTrigger ? firstTrigger.querySelector('.dynamic-content-swap').innerHTML : initialContent;
+                 updateContentAndLayout(1, firstImageContent); 
             }
         });
     }, options);
