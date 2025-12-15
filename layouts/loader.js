@@ -20,39 +20,16 @@ document.addEventListener('DOMContentLoaded', () => {
     loadHTML('/layouts/sidebar.html', 'sidebar-placeholder');
     loadHTML('/layouts/footnote.html', 'footnote-placeholder');
 
-    const articleItems = document.querySelectorAll('#publication-list .publication-group li');
-    const totalArticleItems = articleItems.length;
+    function enumerateListItems(listSelector) {
+    const items = document.querySelectorAll(listSelector);
+    const totalItems = items.length;
 
-    articleItems.forEach((item, index) => {
-        const reversedNumber = totalArticleItems - index;
-
-        const numberSpan = item.querySelector('.list-number');
-
-        if (numberSpan) {
-            numberSpan.textContent = reversedNumber + '.';
+        if (totalItems === 0) {
+            return; 
         }
-    });
 
-    const bookChapterItems = document.querySelectorAll('#book-chapters-list li');
-    const totalBookChapterItems = bookChapterItems.length;
-    
-    if (totalBookChapterItems > 0) {
-        bookChapterItems.forEach((item, index) => {
-            const reversedNumber = totalBookChapterItems - index;
-            const numberSpan = item.querySelector('.list-number');
-            if (numberSpan) {
-                numberSpan.textContent = reversedNumber + '.';
-            }
-        });
-    }
-
-    const patentItems = document.querySelectorAll('#patents-list li');
-    const totalPatentItems = patentItems.length;
-    
-    if (totalPatentItems > 0) {
-        patentItems.forEach((item, index) => {
-            const reversedNumber = totalPatentItems - index; 
-
+        items.forEach((item, index) => {
+            const reversedNumber = totalItems - index;
             const numberSpan = item.querySelector('.list-number');
 
             if (numberSpan) {
@@ -60,6 +37,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    enumerateListItems('#publication-list li');
+    enumerateListItems('#book-chapters-list li');
+    enumerateListItems('#patents-list li');
 
     const triggers = document.querySelectorAll('.collapsed-header');
 
