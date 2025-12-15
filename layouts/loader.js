@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
         header.addEventListener('click', () => {
             const content = header.nextElementSibling;
             header.classList.toggle('active');
+            content.classList.toggle('collapsed');
             if (content.style.maxHeight) {
                 content.style.maxHeight = null;
             } else {

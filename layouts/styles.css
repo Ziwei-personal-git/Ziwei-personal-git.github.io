@@ -86,11 +86,16 @@ header {
 
 .publication-group {
     display: block;
+    transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
+    overflow: hidden;
 }
 
 .publication-group.collapsed {
-    display: none;
-}
+    max-height: 0;
+    opacity: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;}
 
 .sidebar {
     flex: 1; /* Takes up 1 part of space (e.g., 25%) */
