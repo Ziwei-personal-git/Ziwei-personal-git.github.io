@@ -42,10 +42,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ----------------------------------------------------
-    // Collapsible Section Handlers
+    // collapsed Section Handlers
     // ----------------------------------------------------
-    const collapsibles = document.querySelectorAll('.collapsible-header');
-    collapsibles.forEach(header => {
+    const collapseds = document.querySelectorAll('.collapsed-header');
+    collapseds.forEach(header => {
         header.addEventListener('click', () => {
             const content = header.nextElementSibling;
             header.classList.toggle('active');
