@@ -177,9 +177,9 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(section);
     });
 
-    // ----------------------------------------------------
-    // Parallax Image Movement Handler (Localized Fix)
-    // ----------------------------------------------------
+    // --------------------------------
+    // Parallax Image Movement Handler 
+    // --------------------------------
     
     const parallaxScrollHandler = () => {
         
@@ -190,17 +190,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const containerHeight = scrollContainer.offsetHeight;
         const windowHeight = window.innerHeight;
         
-        const startScroll = containerHeight + scrollContainerRect.top - windowHeight;
-        const endScroll = containerHeight + scrollContainerRect.top;
-        const totalScrollLength = endScroll - startScroll;
-        
         const currentScroll = -scrollContainerRect.top;
+        const totalScrollLength = containerHeight - windowHeight;
         
         const scrollProgress = Math.min(1, Math.max(0, currentScroll / (totalScrollLength)));
         
-        const totalMovement = 15; 
-        const yMovement = (scrollProgress * totalMovement) * -1;
-        const zoomScale = 3 - (scrollProgress * 2); 
+        const yMovement = 0;
+        const zoomScale = 1 + (scrollProgress * 0.1);
         
         activeImage.style.transform = `translateY(${yMovement}%) scale(${zoomScale})`;
     };
