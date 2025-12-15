@@ -19,13 +19,13 @@ document.addEventListener('DOMContentLoaded', () => {
     loadHTML('/layouts/header.html', 'header-placeholder');
     loadHTML('/layouts/sidebar.html', 'sidebar-placeholder');
     loadHTML('/layouts/footnote.html', 'footnote-placeholder');
-
+    
     function enumerateListItems(listSelector) {
-    const items = document.querySelectorAll(listSelector);
-    const totalItems = items.length;
+        const items = document.querySelectorAll(listSelector);
+        const totalItems = items.length;
 
         if (totalItems === 0) {
-            return; 
+            return;
         }
 
         items.forEach((item, index) => {
@@ -38,55 +38,42 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    enumerateListItems('#publication-list li');
-    enumerateListItems('#book-chapters-list li');
-    enumerateListItems('#patents-list li');
-
-    const triggers = document.querySelectorAll('.collapsed-header');
-
-    triggers.forEach(trigger => {
-        trigger.addEventListener('click', () => {
-            
-            const targetId = trigger.getAttribute('data-year');
-            const targetGroup = document.getElementById(targetId);
-
-            if (targetGroup) {
-                targetGroup.classList.toggle('collapsed');
-
-                trigger.classList.toggle('active');
-
-                const isExpanded = !targetGroup.classList.contains('collapsed');
-                trigger.setAttribute('aria-expanded', isExpanded);
-            }
-        });
-    });
-    // ----------------------------------------------------
-    // collapsed Section Handlers 
-    // ----------------------------------------------------
     const collapseds = document.querySelectorAll('.collapsed-header');
+    
     collapseds.forEach(header => {
         header.addEventListener('click', () => {
-            const content = header.nextElementSibling;
+            const content = header.nextElementSibling; 
+
             header.classList.toggle('active');
+            const isExpanded = header.classList.contains('active');
+            header.setAttribute('aria-expanded', isExpanded); 
+
             content.classList.toggle('collapsed');
-            if (content.style.maxHeight) {
-                content.style.maxHeight = null;
+
+            if (isExpanded) {
+                setTimeout(() => {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }, 5); 
             } else {
-                content.style.maxHeight = content.scrollHeight + "px";
-                const parentGroup = header.closest('.publication-group');
-                if (parentGroup && parentGroup.id === 'publications-Articles') {
-                const parentHeader = document.querySelector(`[data-year='${parentGroup.id}']`);
                 
-                    if (parentHeader && parentHeader.classList.contains('active')) {
-                        
-                        setTimeout(() => {
-                            const newParentHeight = parentGroup.scrollHeight;
-                            parentGroup.style.maxHeight = newParentHeight + "px";
-                        }, 50); 
-                    }
-                } 
+                content.style.maxHeight = content.scrollHeight + "px"; 
+                requestAnimationFrame(() => {
+                    content.style.maxHeight = null; 
+                });
+            }
+
+            const parentGroup = header.closest('.publication-group');
+            if (parentGroup && parentGroup.id === 'publications-Articles' && isExpanded) {
+                setTimeout(() => {
+                    parentGroup.style.maxHeight = parentGroup.scrollHeight + "px";
+                }, 100); 
             }
         });
+   
+
+        enumerateListItems('#publication-list li');
+        enumerateListItems('#book-chapters-list li');
+        enumerateListItems('#patents-list li');
     });
 
     // ----------------------------------------------------
