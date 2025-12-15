@@ -25,23 +25,60 @@ document.addEventListener('DOMContentLoaded', () => {
 
     articleItems.forEach((item, index) => {
         const reversedNumber = totalArticleItems - index;
+
         const numberSpan = item.querySelector('.list-number');
+
         if (numberSpan) {
             numberSpan.textContent = reversedNumber + '.';
         }
     });
 
-    const bookChapterItems = document.querySelectorAll('#book-chaptors-list li');
+    const bookChapterItems = document.querySelectorAll('#book-chapters-list li');
     const totalBookChapterItems = bookChapterItems.length;
+    
+    if (totalBookChapterItems > 0) {
+        bookChapterItems.forEach((item, index) => {
+            const reversedNumber = totalBookChapterItems - index;
+            const numberSpan = item.querySelector('.list-number');
+            if (numberSpan) {
+                numberSpan.textContent = reversedNumber + '.';
+            }
+        });
+    }
 
-    bookChapterItems.forEach((item, index) => {
-        const reversedNumber = totalBookChapterItems - index;
-        const numberSpan = item.querySelector('.list-number');
-        if (numberSpan) {
-            numberSpan.textContent = reversedNumber + '.';
-        }
+    const patentItems = document.querySelectorAll('#patents-list li');
+    const totalPatentItems = patentItems.length;
+    
+    if (totalPatentItems > 0) {
+        patentItems.forEach((item, index) => {
+            const reversedNumber = totalPatentItems - index; 
+
+            const numberSpan = item.querySelector('.list-number');
+
+            if (numberSpan) {
+                numberSpan.textContent = reversedNumber + '.';
+            }
+        });
+    }
+
+    const triggers = document.querySelectorAll('.collapsed-header');
+
+    triggers.forEach(trigger => {
+        trigger.addEventListener('click', () => {
+            
+            const targetId = trigger.getAttribute('data-year');
+            const targetGroup = document.getElementById(targetId);
+
+            if (targetGroup) {
+                targetGroup.classList.toggle('collapsed');
+
+                trigger.classList.toggle('active');
+
+                const isExpanded = !targetGroup.classList.contains('collapsed');
+                trigger.setAttribute('aria-expanded', isExpanded);
+            }
+        });
     });
-
     // ----------------------------------------------------
     // collapsed Section Handlers 
     // ----------------------------------------------------
