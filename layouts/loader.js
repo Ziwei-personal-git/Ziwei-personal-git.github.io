@@ -62,41 +62,42 @@ document.addEventListener('DOMContentLoaded', () => {
     // ----------------------------------------------------
     const stickyContainer = document.getElementById('sticky-container');
     const dynamicContentArea = document.getElementById('dynamic-content-container');
-    const initialContent = document.querySelector('.trigger-section[data-image="1"] .dynamic-content-swap') ? 
-                           document.querySelector('.trigger-section[data-image="1"] .dynamic-content-swap').innerHTML :
-                           document.querySelector('#text-overlay .dynamic-content-swap') ?
-                           document.querySelector('#text-overlay .dynamic-content-swap').innerHTML : '';
-                           
+    const initialContent = document.querySelector('.dynamic-content-swap') ? 
+                           document.querySelector('.dynamic-content-swap').innerHTML : '';
+
     const initialImageId = 'image-1';
 
     let currentImageElement = document.getElementById(initialImageId);
-    let currentContentHTML = initialContent;
     let currentImageIndex = 1;
     
-    // Set initial state
     if (currentImageElement) {
         currentImageElement.classList.add('active');
     }
 
-    const updateContentAndLayout = (targetIndex, targetContentHTML) => {
+    stickyContainer.classList.remove('slide-left', 'slide-right', 'image-right');
+
+    const updateContentAndLayout = (targetIndex, targetContentHTML, shouldSlide) => {
         
         stickyContainer.classList.remove('slide-left', 'slide-right');
-        
-        const isImageRight = targetIndex % 2 === 0;
-        
-        if (isImageRight) {
-            stickyContainer.classList.add('image-right');
-            stickyContainer.classList.add('slide-right');
-        } else {
-            stickyContainer.classList.remove('image-right');
-            stickyContainer.classList.add('slide-left');
-        }
-        
+
         const targetImageId = `image-${targetIndex}`;
         const targetImageElement = document.getElementById(targetImageId);
         
         if (currentImageElement) {
             currentImageElement.classList.remove('active');
+        }
+
+        const isImageRight = targetIndex % 2 === 0;
+        
+        if (isImageRight) {
+            stickyContainer.classList.add('image-right');
+        } else {
+            stickyContainer.classList.remove('image-right');
+        }
+        
+        if (shouldSlide) {
+            const slideClass = isImageRight ? 'slide-right' : 'slide-left';
+            stickyContainer.classList.add(slideClass);
         }
         
         setTimeout(() => {
@@ -110,11 +111,12 @@ document.addEventListener('DOMContentLoaded', () => {
             currentImageIndex = targetIndex;
             currentContentHTML = targetContentHTML;
 
-            setTimeout(() => {
-                stickyContainer.classList.remove('slide-left', 'slide-right');
-            }, 50); 
-            
-        }, 500); 
+            if (shouldSlide) {
+                setTimeout(() => {
+                    stickyContainer.classList.remove('slide-left', 'slide-right');
+                }, 50); 
+            }
+        }, shouldSlide ? 500 : 0); 
     };
 
     const triggerSections = document.querySelectorAll('.trigger-section');
@@ -131,12 +133,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetContent = targetElement.querySelector('.dynamic-content-swap').innerHTML;
 
             if (entry.isIntersecting && targetIndex !== currentImageIndex) {
-                updateContentAndLayout(targetIndex, targetContent);
+                updateContentAndLayout(targetIndex, targetContent, true);
             }
-            else if (!entry.isIntersecting && targetIndex === 2 && entry.boundingClientRect.top > 0 && currentImageIndex === 2) {
-                 const firstTrigger = document.querySelector('.trigger-section[data-image="1"]');
-                 const firstImageContent = firstTrigger ? firstTrigger.querySelector('.dynamic-content-swap').innerHTML : initialContent;
-                 updateContentAndLayout(1, firstImageContent); 
+            else if (!entry.isIntersecting && targetIndex === 2 && entry.boundingClientRect.top > 0 && currentImageIndex !== 1) {
+                const initialImageContent = document.querySelector('#text-overlay .dynamic-content-swap').innerHTML;
+                updateContentAndLayout(1, initialImageContent, false);
+                stickyContainer.classList.remove('image-right');
             }
         });
     }, options);
