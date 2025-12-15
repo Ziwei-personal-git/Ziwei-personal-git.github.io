@@ -121,8 +121,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             setTimeout(() => {
                 dynamicContentArea.classList.remove('fading-out');
-            }, 10); 
-        }, 700); 
+            }, 50); 
+        }, 500); 
     };
 
     const observer = new IntersectionObserver((entries, observer) => {
@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             dynamicContentArea.classList.remove('fading-out');
                         }, 10);
                         
-                    }, 700); 
+                    }, 500); 
                     
                     currentActiveSection = null; 
                     stickyContainer.classList.remove('image-right');
