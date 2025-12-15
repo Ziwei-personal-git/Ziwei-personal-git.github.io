@@ -54,7 +54,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 content.style.maxHeight = null;
             } else {
                 content.style.maxHeight = content.scrollHeight + "px";
-            } 
+                const parentGroup = header.closest('.publication-group');
+                if (parentGroup && parentGroup.id === 'publications-Articles') {
+                const parentHeader = document.querySelector(`[data-year='${parentGroup.id}']`);
+                
+                    if (parentHeader && parentHeader.classList.contains('active')) {
+                        
+                        setTimeout(() => {
+                            const newParentHeight = parentGroup.scrollHeight;
+                            parentGroup.style.maxHeight = newParentHeight + "px";
+                        }, 50); 
+                    }
+                } 
+            }
         });
     });
     
