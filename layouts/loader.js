@@ -76,128 +76,131 @@ document.addEventListener('DOMContentLoaded', () => {
         enumerateListItems('#patents-list li');
     });
 
-    // ----------------------------------------------------
-    // Scroll-Triggered Layout Handler
-    // ----------------------------------------------------
     const stickyContainer = document.getElementById('sticky-container');
     const textOverlay = document.getElementById('text-overlay');
     const dynamicContentContainer = document.getElementById('dynamic-content-container');
-    
-    const initialContentNode = dynamicContentContainer.querySelector('.dynamic-content-swap');
-    const originalScene1Content = initialContentNode ? initialContentNode.innerHTML : '';
-    
-    const triggerSections = document.querySelectorAll('.trigger-section');
+
+    const triggerSections = Array.from(document.querySelectorAll('.trigger-section'));
     const images = document.querySelectorAll('#image-display img');
 
-    let currentScene = 1;
-    let isAnimating = false; 
-    let lastScrollY = window.scrollY; 
+    const initialContentNode = dynamicContentContainer.querySelector('.dynamic-content-swap');
+    const originalScene1Content = initialContentNode ? initialContentNode.innerHTML : '';
 
-    const updateContent = (newScene, contentHTML) => {
-        dynamicContentContainer.innerHTML = `<div class="dynamic-content-swap">${contentHTML}</div>`;
+    let currentScene = 1;
+    let isAnimating = false;
+    let queuedScene = null;
+
+    let transitionTimeout1;
+    let transitionTimeout2;
+
+    function getSceneContent(scene) {
+        if (scene === 1) return originalScene1Content;
+
+        const trigger = triggerSections[scene - 2];
+        if (!trigger) return '';
+
+        const node = trigger.querySelector('.dynamic-content-swap');
+        return node ? node.innerHTML : '';
+    }
+
+    function updateContent(scene, contentHTML) {
+        dynamicContentContainer.innerHTML =
+            `<div class="dynamic-content-swap">${contentHTML}</div>`;
 
         images.forEach(img => img.classList.remove('active', 'zoom-out-blur'));
-        
-        const newImage = document.getElementById(`image-${newScene}`);
-        if (newImage) {
-            newImage.classList.add('active');
-        }
-    };
 
-    const transitionScene = (newScene, isScrollingDown, contentHTML) => {
-        if (isAnimating || newScene === currentScene) return;
+        const newImage = document.getElementById(`image-${scene}`);
+        if (newImage) newImage.classList.add('active');
+    }
+
+    function transitionScene(newScene, isScrollingDown, contentHTML) {
+        if (newScene === currentScene) return;
+
+        clearTimeout(transitionTimeout1);
+        clearTimeout(transitionTimeout2);
 
         isAnimating = true;
-        const oldScene = currentScene;
-        currentScene = newScene;
 
-        const slideOutClass = isScrollingDown
-            ? 'slide-out-left'
-            : 'slide-out-right';
+        const slideOutClass = isScrollingDown ? 'slide-out-left' : 'slide-out-right';
+        const preEnterClass = isScrollingDown ? 'pre-enter-left' : 'pre-enter-right';
+        const duration = 1200;
 
-        const preEnterClass = isScrollingDown
-            ? 'pre-enter-left'
-            : 'pre-enter-right';
+        stickyContainer.classList.remove(
+            'slide-out-left',
+            'slide-out-right',
+            'pre-enter-left',
+            'pre-enter-right'
+        );
 
         stickyContainer.classList.add(slideOutClass);
         textOverlay.classList.add('fading-out');
 
-        const duration = 1200;
-
-        setTimeout(() => {
+        transitionTimeout1 = setTimeout(() => {
             stickyContainer.classList.remove(slideOutClass);
             stickyContainer.classList.add(preEnterClass);
 
+            currentScene = newScene;
             updateContent(newScene, contentHTML);
 
-            stickyContainer.offsetHeight;
+            stickyContainer.offsetHeight; 
 
             stickyContainer.classList.remove(preEnterClass);
             textOverlay.classList.remove('fading-out');
-
         }, duration);
 
-        setTimeout(() => {
+        transitionTimeout2 = setTimeout(() => {
             isAnimating = false;
-        }, duration * 2);
-    };
 
-
-    const observerCallback = (entries, observer) => {
-        const isScrollingDown = window.scrollY > lastScrollY;
-        lastScrollY = window.scrollY; 
-
-        entries.forEach(entry => {
-            const triggerIndex = Array.from(triggerSections).indexOf(entry.target);
-            
-            const currentTriggerScene = triggerIndex + 2;
-            const previousScene = triggerIndex + 1;
-
-            if (isAnimating) {
-                return; 
+            if (queuedScene && queuedScene !== currentScene) {
+                const target = queuedScene;
+                queuedScene = null;
+                requestSceneChange(target);
             }
-            if (isScrollingDown && entry.isIntersecting && entry.intersectionRatio >= 0.5) {
-                
-                if (currentTriggerScene === currentScene + 1) {
-                    const contentNode = entry.target.querySelector('.dynamic-content-swap');
-                    transitionScene(currentTriggerScene, true, contentNode.innerHTML);
-                }
-            } 
-            
-            if (!isScrollingDown && entry.isIntersecting && entry.intersectionRatio < 0.5) {
-                
-                if (currentTriggerScene === currentScene) {
-                    
-                    let targetScene = previousScene;
-                    let targetContentHTML = '';
-                    
-                    if (targetScene === 1) {
-                        targetContentHTML = originalScene1Content;
-                    } else {
-                        const prevTrigger = triggerSections[triggerIndex - 1];
-                        if (prevTrigger) {
-                            targetContentHTML = prevTrigger.querySelector('.dynamic-content-swap').innerHTML;
-                        }
-                    }
-                    
-                    if (targetContentHTML && targetScene > 0) {
-                        transitionScene(targetScene, false, targetContentHTML);
-                    }
-                }
+        }, duration * 2);
+    }
+
+    function requestSceneChange(targetScene) {
+        if (targetScene === currentScene) return;
+
+        if (isAnimating) {
+            queuedScene = targetScene;
+            return;
+        }
+
+        const isScrollingDown = targetScene > currentScene;
+        const contentHTML = getSceneContent(targetScene);
+
+        if (contentHTML) {
+            transitionScene(targetScene, isScrollingDown, contentHTML);
+        }
+    }
+
+    function getDesiredScene() {
+        let scene = 1;
+
+        triggerSections.forEach((section, index) => {
+            const rect = section.getBoundingClientRect();
+            if (rect.top <= window.innerHeight * 0.5) {
+                scene = index + 2;
             }
         });
-    };
 
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: [0, 0.5, 1.0] 
-    };
+        return scene;
+    }
 
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    let ticking = false;
 
-    triggerSections.forEach(section => {
-        observer.observe(section);
-    });
-    
+    function onScroll() {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                const desiredScene = getDesiredScene();
+                requestSceneChange(desiredScene);
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+
 });
