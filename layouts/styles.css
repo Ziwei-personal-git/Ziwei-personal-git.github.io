@@ -150,6 +150,16 @@ header {
     content: '-'; 
 }
 
+.video-container {
+    width: 100%;       
+    aspect-ratio: 16 / 9;
+}
+
+.video-container iframe {
+    width: 100%;
+    height: 100%;
+}
+
 .year-separator {
     font-size: 18px; 
     font-weight: bold; 
