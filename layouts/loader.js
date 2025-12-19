@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // ----------------------------------------------------
     // START: Layout and Footer Loading Handlers 
     // ----------------------------------------------------
-    loadHTML('/layouts/head.html','head-placeholder');
     loadHTML('/layouts/header.html', 'header-placeholder');
     loadHTML('/layouts/sidebar.html', 'sidebar-placeholder');
     loadHTML('/layouts/footnote.html', 'footnote-placeholder');
