@@ -204,27 +204,18 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('click', (e) => {
+        const menuBtn = e.target.closest('#hamburgerbutton');
+        if (!menuBtn) return;
 
-    const menuBtn = document.getElementById('hamburgerbutton');
-    const navLinks = document.getElementById('hamburgerlinks');
-
-    if (menuBtn && navLinks) {
-        menuBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            menuBtn.classList.toggle('active');
-        });
-    }
-
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    const menuBtn = document.getElementById('hamburgerbutton');
-    const sidebar = document.querySelector('.sidebar');
-
-    if (menuBtn && sidebar) {
-        menuBtn.addEventListener('click', () => {
+        const sidebar = document.querySelector('.sidebar');
+        const navLinks = document.getElementById('hamburgerlinks');
+        if (sidebar) {
             sidebar.classList.toggle('active');
-            menuBtn.classList.toggle('active');
-        });
-    }
+        }
+        if (navLinks) {
+            navLinks.classList.toggle('active');
+        }
+        menuBtn.classList.toggle('active');
+    });
 });
