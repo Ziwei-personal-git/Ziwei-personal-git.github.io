@@ -201,5 +201,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     window.addEventListener('scroll', onScroll, { passive: true });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    const menuBtn = document.getElementById('hamburgerbutton');
+    const navLinks = document.getElementById('hamburgerlinks');
+
+    if (menuBtn && navLinks) {
+        menuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            menuBtn.classList.toggle('active');
+        });
+    }
 
 });

@@ -91,6 +91,86 @@ body {
     color:purple;
 }
 
+.homenav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+
+.hamburgerbutton {
+    display: none;
+    font-size: 1rem;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.hamburgerlinks {
+  display: none;
+  list-style: none;
+  z-index: 1000;
+}
+
+.hamburgerlinks li {
+  margin: 20px;
+}
+
+.hamburgerlinks li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    display: block;
+    padding: 8px 12px;
+    transition: color 0.3s ease;
+}
+
+.hamburgerlinks li a:hover {
+    color: purple;
+    background-color: #f8f8f8;
+}
+
+.hamburgerbutton .bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px auto;
+  background-color: rgb(0, 0, 0);
+  transition: all 0.3s ease-in-out;
+}
+
+.hamburgerbutton:hover .bar {
+    background-color: purple; 
+}
+
+.hamburgerbutton:hover .bar:nth-child(1) {
+    transform: translateY(-2px); 
+}
+
+.hamburgerbutton:hover .bar:nth-child(3) {
+    transform: translateY(2px); 
+}
+
+.hamburgerbutton .bar {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#hamburgerbutton.active .bar:nth-child(2) { 
+    opacity: 0; 
+}
+
+#hamburgerbutton.active .bar:nth-child(1) { 
+    transform: translateY(8px) rotate(45deg); 
+    background-color: purple; 
+}
+
+#hamburgerbutton.active .bar:nth-child(3) { 
+    transform: translateY(-8px) rotate(-45deg); 
+    background-color: purple; 
+}
+
 .list-number {
     font-style: italic;
     margin-right: 10px; 
@@ -447,10 +527,50 @@ body {
     .flex-rows {
         flex-direction: column; 
     }
+
     .textwithimg {
         flex: 1; 
     }
+
     .imgwithtext {
         display: none;
     }
+
+    .homeheaderlinks {
+        display: none;
+    }
+
+    .hamburgerbutton {
+        display: block;
+    }
+
+    .hamburgerlinks {
+        display: flex; 
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 60px;
+        right: 2rem;
+        width: auto;
+        background: #ffffff;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        border-radius: 8px;
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        transition: all 0.4s ease-in-out;
+        z-index: 1000;
+  }
+
+  .hamburgerlinks.active {
+        max-height: 500px;
+        opacity: 1;
+        padding: 1rem;
+  }
+
+  .hamburgerlinks li{
+        text-decoration: none;
+        margin:10px 0;
+        text-align: right;
+  }
 }
