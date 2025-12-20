@@ -1,21 +1,43 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    function loadHTML(url, elementId) {
+    function loadHTML(url, elementId, callback) {
         fetch(url)
             .then(response => response.text())
             .then(html => {
                 const element = document.getElementById(elementId);
                 if (element) {
                     element.innerHTML = html;
+                    // Run the callback if it exists
+                    if (callback) callback();
                 }
             })
             .catch(error => console.error('Error loading content:', error));
     }
+    // ----------------------------------------------------
+    // Light/Dark mode
+    // ----------------------------------------------------
+    function initTheme() {
+        const toggleBtn = document.getElementById('theme-toggle');
+        if (!toggleBtn) return;
+
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+
+        toggleBtn.addEventListener('click', () => {
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            const newTheme = isDark ? 'light' : 'dark';
+
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+    }
+
+    initTheme();
+
     
     // ----------------------------------------------------
     // START: Layout and Footer Loading Handlers 
     // ----------------------------------------------------
-    loadHTML('/layouts/header.html', 'header-placeholder');
     loadHTML('/layouts/sidebar.html', 'sidebar-placeholder');
     loadHTML('/layouts/footnote.html', 'footnote-placeholder');
     

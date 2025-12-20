@@ -1,10 +1,48 @@
+/* --- Color Definitions --- */
+:root {
+    /* Light Mode */
+    --bg-main: #f4f4f9;
+    --bg-header: whitesmoke;
+    --bg-content: #ffffff;
+    --text-main: #333333;
+    --text-sidebar: rgb(16, 44, 147);
+    --text-sidebar-hover: rgb(0, 55, 255);
+    --accent-purple: rgb(117, 57, 154);
+    --border-color: #cccccc;
+    --small-text: #00bbff;
+}
+
+[data-theme="dark"] {
+    /* Dark Mode */
+    --bg-main: #121212;
+    --bg-header: #1e1e1e;
+    --bg-content: #181818;
+    --text-main: #e2e8f0;
+    --text-sidebar: #94a3b8;
+    --text-sidebar-hover: #60a5fa;
+    --accent-purple: #c084fc; 
+    --border-color: #334155;
+    --small-text: #38bdf8;
+}
+
+[data-theme="dark"] .hamburgerlinks {
+    background: var(--bg-header);
+}
+
+[data-theme="dark"] .hamburgerlinks li a {
+    color: var(--text-main);
+}
+
+[data-theme="dark"] .hamburgerbutton .bar {
+    background-color: var(--text-main);
+}
 
 .about-me-list li {
     margin-bottom: 20px;
 }
 
 .about-me-list li small{
-    color: #00bbff;
+    color: var(--small-text);
 }
 
 .aligned-list {
@@ -25,13 +63,15 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f9;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .content {
     flex: 3; /* Share width with sidebar (1) */
     padding-left: 20px;
-    border-left: 1px solid #cccccc;
+    border-left: 1px solid var(--border-color);
 
 }
 .flex-rows {
@@ -78,17 +118,17 @@ body {
     justify-content: space-between; 
     align-items: center;
     padding: 10px;
-    background-color: whitesmoke;
+    background-color: var(--bg-header);
 }
 
 .homeheaderlinks a {
     margin-left: 1.5rem;
     text-decoration: none;
-    color:black;
+    color:var(--text-main);
 }
 
 .homeheaderlinks a:hover {
-    color:purple;
+    color:var(--accent-purple);
 }
 
 .homenav {
@@ -106,14 +146,68 @@ body {
 }
 
 .restnav {
-    display: block;
+    display: flex;
     align-items: center;
+    justify-content: space-between;
     width: 100%;
+}
+
+.site-title {
+    margin: 13px;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto;
 }
 
 .restnav a {
     text-decoration: none;
     color: white;
+}
+
+.theme-btn {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: var(--text-main);
+    transition: transform 0.2s ease;
+}
+
+.theme-btn i {
+    transition: transform 0.5s ease-in-out; 
+}
+
+.theme-btn:hover i {
+    transform: rotate(90deg); 
+}
+
+.sun-icon { display: none; }
+.moon-icon { display: inline-block; }
+
+[data-theme="light"] .sun-icon {
+    display: none;
+}
+
+[data-theme="light"] .moon-icon {
+    display: inline-block;
+}
+
+[data-theme="dark"] .sun-icon {
+    display: inline-block;
+}
+
+[data-theme="dark"] .moon-icon {
+    display: none;
 }
 
 .hamburgerbutton {
@@ -272,7 +366,7 @@ body {
     display: flex;
     align-items: center;
     text-decoration: none;
-    color: rgb(16, 44, 147);
+    color: var(--text-sidebar);
     padding: 6px 0;
 }
 
@@ -289,14 +383,14 @@ body {
 }
 
 .sidebar ul li a:hover {
-    color: rgb(0, 55, 255);
+    color: var(--text-sidebar-hover);
     font-style: italic;
 }
 
 .subsection-separator {
     font-size: 20px; 
     font-weight: bold; 
-    color: rgb(117, 57, 154);
+    color: var(--accent-purple);
     margin-top: 0.5em; 
     margin-bottom: 0.5em; 
 }
@@ -415,7 +509,7 @@ body {
     justify-content: center;
     padding: 1.5rem;
     box-sizing: border-box;
-    color: #333;
+    color: var(--text-main);
     text-align: left;
     overflow-y: hidden;
     min-height: 200px;
@@ -525,7 +619,7 @@ body {
         max-height: 0;
         overflow: hidden;
         opacity: 0;
-        transition: max-height 0.5s ease-in-out, opacity 0.3s ease;
+        transition: max-height 1s ease-in-out, opacity 0.7s ease;
         max-width: none;
         width: 100%;
         padding-right: 0;
@@ -582,7 +676,7 @@ body {
         max-height: 0;
         opacity: 0;
         overflow: hidden;
-        transition: all 0.4s ease-in-out;
+        transition: all 0.7s ease-in-out;
         z-index: 1000;
   }
 
@@ -596,10 +690,6 @@ body {
         text-decoration: none;
         margin:10px 0;
         text-align: right;
-  }
-
-  .headertext{
-        margin-left: 80px;
   }
 
   .restnav {
