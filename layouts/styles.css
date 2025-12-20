@@ -77,8 +77,8 @@ body {
     display: flex;
     justify-content: space-between; 
     align-items: center;
-    padding: 1rem 2rem;
-    background-color: white;
+    padding: 10px;
+    background-color: whitesmoke;
 }
 
 .homeheaderlinks a {
@@ -109,6 +109,11 @@ body {
     display: block;
     align-items: center;
     width: 100%;
+}
+
+.restnav a {
+    text-decoration: none;
+    color: white;
 }
 
 .hamburgerbutton {
