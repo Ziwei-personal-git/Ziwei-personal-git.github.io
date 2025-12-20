@@ -11,7 +11,13 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-E661B84JVL');
+
+      // Only track if not on localhost
+      if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+          gtag('config', 'G-E661B84JVL');
+      } else {
+          console.log('Google Analytics disabled on localhost');
+      }
     </script>
 
     <link rel="stylesheet" href="/layouts/styles.css">
@@ -19,24 +25,23 @@
     <script src="/layouts/loader.js" defer></script>
 </head>
 <body>
-    <div id="header-placeholder"></div>
-
-    <div class="main-wrapper">
-    
-        <div class="sidebar">
-
-            <div id="sidebar-placeholder"></div>
-            
+    <header class="homeheader">
+        <div class="myname">
+            Ziwei L<span class="surnamecaps">iu</span><span class="post-nominal">, PhD, AFHEA</span>
         </div>
-    
-
+        <div class="homeheaderlinks">
+            <a href="/layouts/about.html"><i class="fa-solid fa-user "></i> About Me</a>
+            <a href="/layouts/research.html"><i class="fa-solid fa-vial-circle-check"></i> Research Interests</a>
+            <a href="/layouts/publications.html"><i class="fa-solid fa-book-open "></i> Publications</a>
+            <a href="/layouts/CoverArts.html"><i class="fa-solid fa-palette "></i> Cover Arts</a>
+        </div>
+    </header>
         <div class="content">
 
             <h3>Welcome to my personal website!</h3>
-            <h2>All links on the left work. This page is under construction.</h2>
+            <h2>All links on the top work. This page is under construction.</h2>
             
-        <div id="footnote-placeholder"></div> 
         </div>    
-    </div>
+    <div id="footnote-placeholder"></div> 
 </body>
 </html>

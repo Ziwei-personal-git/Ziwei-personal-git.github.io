@@ -11,7 +11,13 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-E661B84JVL');
+
+      // Only track if not on localhost
+      if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+          gtag('config', 'G-E661B84JVL');
+      } else {
+          console.log('Google Analytics disabled on localhost');
+      }
     </script>
 
     <link rel="stylesheet" href="/layouts/styles.css">
@@ -33,10 +39,10 @@
         <div class="content">
 
             <h2>Research Interests</h2>
-            <img id="initial-img" src="/arts/screen0.jpg", style="width: 100%; height: auto; display: block;">
-            <p class="longpara">
+            <img id="initial-img" src="/arts/screen0.jpg" alt="initial-img">
+            <div class="longpara">
                 My research investigates how simple prebiotic molecules can self-organize into increasingly complex chemical systems that exhibit life-like properties. I focus on chemically and geochemically plausible environments where energy, mineral surfaces, and reactive small molecules drive the formation of key building blocks, polymers, and reaction networks. By studying the progression from simple feedstock chemistry to organized reaction networks, molecular assemblies, and compartmentalized protocell-like systems, my work aims to elucidate the physicochemical principles underlying the emergence of early life on Earth and to inform the search for life in planetary environments beyond our own.
-            </p>
+            </div>
             <br>
 
             <div class="scroll-container">
@@ -130,8 +136,8 @@
                     </div>
                 </div>
             </div>  
-        <div id="footnote-placeholder"></div> 
         </div>    
     </div>
+    <div id="footnote-placeholder"></div> 
 </body>
 </html>

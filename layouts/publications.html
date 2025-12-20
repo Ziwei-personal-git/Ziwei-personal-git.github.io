@@ -11,7 +11,13 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-E661B84JVL');
+
+      // Only track if not on localhost
+      if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+          gtag('config', 'G-E661B84JVL');
+      } else {
+          console.log('Google Analytics disabled on localhost');
+      }
     </script>
 
     <link rel="stylesheet" href="/layouts/styles.css">
@@ -546,7 +552,8 @@
                     </div>
                 </li>
             </ul>
-        <div id="footnote-placeholder"></div> 
+        </div>
     </div>
+    <div id="footnote-placeholder"></div> 
 </body>
 </html>
