@@ -267,9 +267,15 @@ document.addEventListener('DOMContentLoaded', () => {
             bgLink.classList.add('is-hovered');
         });
 
-        bgLink.addEventListener('touchend', () => {
-            bgLink.classList.remove('is-hovered');
-        });
+        const removeHover = () => {
+            setTimeout(() => {
+                bgLink.classList.remove('is-hovered');
+            }, 1); 
+        };
+
+        bgLink.addEventListener('touchend', removeHover);
+        bgLink.addEventListener('touchcancel', removeHover);
     });
 });
+
 
