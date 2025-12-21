@@ -4,6 +4,7 @@
     --bg-main: #f4f4f9;
     --bg-header: whitesmoke;
     --bg-content: #ffffff;
+    --text-homepage:whitesmoke;
     --text-main: #333333;
     --text-sidebar: rgb(16, 44, 147);
     --text-sidebar-hover: rgb(0, 55, 255);
@@ -122,17 +123,20 @@ body {
     justify-content: space-between; 
     align-items: center;
     padding: 10px;
-    background-color: var(--bg-header);
 }
 
 .homeheaderlinks a {
     margin-left: 1.5rem;
     text-decoration: none;
-    color:var(--text-main);
+    color:var(--text-homepage);
 }
 
 .homeheaderlinks a:hover {
     color:var(--accent-purple);
+}
+
+.homefooter {
+    color:var(--text-homepage);
 }
 
 .homenav {
@@ -140,6 +144,58 @@ body {
     justify-content: space-between;
     align-items: center;
     width: 100%;
+}
+
+.homepage-bg-grid {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    z-index: -1;
+}
+
+.bg-link {
+    flex: 1;
+    height: 100%;
+    background-image: var(--img);
+    background-size: cover;
+    background-position: center;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: flex 0.5s ease, filter 0.3s ease;
+    filter: grayscale(40%); 
+}
+
+.bg-link:hover {
+    flex: 1.5;
+    filter: grayscale(0%);
+}
+
+.bg-link span {
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+    opacity: 0.8;
+}
+
+.homebody {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; 
+    margin: 0;
+}
+
+.homemain {
+    flex: 1; 
+}
+
+.site-footer {
+    color: var(--text-main);
 }
 
 .otherheader {
@@ -158,6 +214,7 @@ body {
 
 .site-title {
     margin: 13px;
+    color:var(--text-homepage);
 }
 
 .nav-actions {

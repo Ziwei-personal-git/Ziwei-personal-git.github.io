@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="/layouts/loader.js" defer></script>
 </head>
-<body>
+<body class="homebody">
     <header class="homeheader">
         <nav class="homenav">
             <h1 class="site-title">
@@ -49,12 +49,18 @@
             </ul>
         </nav>
     </header>
-        <div class="content">
-
-            <h3>Welcome to my personal website!</h3>
-            <h2>All links on the top work. This page is under construction.</h2>
-            
-        </div>    
-    <div id="footnote-placeholder"></div> 
+    <main class="homemain">
+        <div class="homepage-bg-grid">
+            <a href="/layouts/about.html" class="bg-link" style="--img: url('/arts/screen3.png')">
+                <span>About Me</span>
+            </a>
+            <a href="/layouts/publications.html" class="bg-link" style="--img: url('/arts/screen1.png')">
+                <span>Publications</span>
+            </a>
+        </div>
+    </main>
+    <footer class="homefooter">
+        <div id="footnote-placeholder"></div> 
+    </footer>
 </body>
 </html>
