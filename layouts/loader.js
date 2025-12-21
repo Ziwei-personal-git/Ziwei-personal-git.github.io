@@ -241,3 +241,36 @@ document.addEventListener('DOMContentLoaded', () => {
         menuBtn.classList.toggle('active');
     });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const headerLinks = document.querySelectorAll('.homeheaderlinks a');
+
+    headerLinks.forEach(headerLink => {
+        const href = headerLink.getAttribute('href');
+        const bgLink = document.querySelector('.bg-link[href="' + href + '"]');
+        if (!bgLink) return;
+
+        headerLink.addEventListener('mouseenter', () => {
+            bgLink.classList.add('is-hovered');
+        });
+        headerLink.addEventListener('mouseleave', () => {
+            bgLink.classList.remove('is-hovered');
+        });
+
+        let touchTimeout;
+
+        headerLink.addEventListener('touchstart', (e) => {
+            e.preventDefault(); 
+            bgLink.classList.add('is-hovered');
+
+            touchTimeout = setTimeout(() => {
+                window.location.href = href;
+            }, 300); 
+        });
+
+        headerLink.addEventListener('touchend', () => {
+            bgLink.classList.remove('is-hovered');
+            clearTimeout(touchTimeout); 
+        });
+    });
+});

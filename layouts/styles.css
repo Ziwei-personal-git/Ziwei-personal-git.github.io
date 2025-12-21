@@ -209,6 +209,19 @@ body {
     text-shadow: 2px 2px 20px rgba(255,255,0,1);
 }
 
+.bg-link.is-hovered {
+    flex: 1.5;
+    filter: grayscale(0%);
+}
+.bg-link.is-hovered::before {
+    background: rgba(0, 0, 0, 0.8);
+}
+.bg-link.is-hovered span {
+    opacity: 1;
+    transform: scale(1);
+    text-shadow: 2px 2px 20px rgba(255,255,0,1);
+}
+
 .homebody {
     display: flex;
     flex-direction: column;
