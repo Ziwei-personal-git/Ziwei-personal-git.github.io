@@ -9,7 +9,8 @@
     --text-sidebar-hover: rgb(0, 55, 255);
     --accent-purple: rgb(117, 57, 154);
     --border-color: #cccccc;
-    --small-text: #00bbff;
+    --link-color: #2563eb;
+    --link-hover: #1d4ed8;
 }
 
 [data-theme="dark"] {
@@ -22,7 +23,8 @@
     --text-sidebar-hover: #60a5fa;
     --accent-purple: #c084fc; 
     --border-color: #334155;
-    --small-text: #38bdf8;
+    --link-color: #93c5fd;
+    --link-hover: #bfdbfe;
 }
 
 [data-theme="dark"] .hamburgerlinks {
@@ -37,12 +39,14 @@
     background-color: var(--text-main);
 }
 
-.about-me-list li {
-    margin-bottom: 20px;
+.generallinks {
+    color: var(--link-color);
+    text-decoration: underline;
+    transition: color 0.2s ease;
 }
 
-.about-me-list li small{
-    color: var(--small-text);
+.generallinks:hover {
+    color: var(--link-hover);
 }
 
 .aligned-list {
