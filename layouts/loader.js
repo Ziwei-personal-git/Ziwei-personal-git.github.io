@@ -243,34 +243,40 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    const headerLinks = document.querySelectorAll('.homeheaderlinks a');
-
-    headerLinks.forEach(headerLink => {
+    document.querySelectorAll('.homeheaderlinks a').forEach(headerLink => {
         const href = headerLink.getAttribute('href');
         const bgLink = document.querySelector('.bg-link[href="' + href + '"]');
+
         if (!bgLink) return;
 
         headerLink.addEventListener('mouseenter', () => {
             bgLink.classList.add('is-hovered');
         });
+
         headerLink.addEventListener('mouseleave', () => {
             bgLink.classList.remove('is-hovered');
         });
+    });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const bgLinks = document.querySelectorAll('.bg-link');
+
+    bgLinks.forEach(bgLink => {
 
         let touchTimeout;
 
-        headerLink.addEventListener('touchstart', (e) => {
-            e.preventDefault(); 
+        bgLink.addEventListener('touchstart', (e) => {
             bgLink.classList.add('is-hovered');
-
+            const href = bgLink.getAttribute('href');
             touchTimeout = setTimeout(() => {
                 window.location.href = href;
             }, 300); 
         });
 
-        headerLink.addEventListener('touchend', () => {
+        bgLink.addEventListener('touchend', () => {
             bgLink.classList.remove('is-hovered');
-            clearTimeout(touchTimeout); 
+            clearTimeout(touchTimeout);
         });
     });
 });
