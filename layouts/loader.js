@@ -32,12 +32,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    initTheme();
 
     
     // ----------------------------------------------------
     // START: Layout and Footer Loading Handlers 
     // ----------------------------------------------------
+    loadHTML("/layouts/header.html", "header-placeholder",initTheme);
     loadHTML('/layouts/sidebar.html', 'sidebar-placeholder');
     loadHTML('/layouts/footnote.html', 'footnote-placeholder');
     
