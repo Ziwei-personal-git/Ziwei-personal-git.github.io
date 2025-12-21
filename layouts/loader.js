@@ -263,20 +263,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const bgLinks = document.querySelectorAll('.bg-link');
 
     bgLinks.forEach(bgLink => {
-
-        let touchTimeout;
-
-        bgLink.addEventListener('touchstart', (e) => {
+        bgLink.addEventListener('touchstart', () => {
             bgLink.classList.add('is-hovered');
-            const href = bgLink.getAttribute('href');
-            touchTimeout = setTimeout(() => {
-                window.location.href = href;
-            }, 300); 
         });
 
         bgLink.addEventListener('touchend', () => {
             bgLink.classList.remove('is-hovered');
-            clearTimeout(touchTimeout);
         });
     });
 });
+
