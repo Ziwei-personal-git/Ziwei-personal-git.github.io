@@ -310,4 +310,106 @@ document.addEventListener('DOMContentLoaded', () => {
         typeNode(nodes[nodeIndex], proceed);
     }
 
+
+    /* ------------------------
+    Scramble reveal 
+    ------------------------ */
+    const CHAR_INTERVAL = 40;   
+    const SCRAMBLE_FRAMES = 2;  
+    const RANDOM_CHARS = "±!@£$%^&*()§€#[];':<>?,./";
+  
+    document.querySelectorAll(".bg-link span.scramble").forEach(panel => {
+    if (!panel.dataset.original) panel.dataset.original = panel.textContent;
+    });
+
+    const triggers = [];
+
+    document.querySelectorAll(".bg-link span.scramble").forEach(panel => {
+    const trigger = panel.closest(".bg-link");
+    if (trigger) triggers.push({ trigger, panel });
+    });
+
+    document.querySelectorAll(".homeheaderlinks a").forEach(link => {
+    const href = link.getAttribute("href");
+    const panel = document.querySelector(`.bg-link[href="${href}"] span.scramble`);
+    if (panel) triggers.push({ trigger: link, panel });
+    });
+
+    triggers.forEach(({ trigger, panel }) => {
+    let timers = [];   
+    let intervals = [];
+
+    const startScramble = () => {
+        if (!panel.classList.contains("scrambling")) revealScramble(panel, timers, intervals);
+    };
+
+    const stopScramble = () => {
+        timers.forEach(t => clearTimeout(t));
+        intervals.forEach(i => clearInterval(i));
+        timers.length = 0;
+        intervals.length = 0;
+        panel.textContent = panel.dataset.original;
+        panel.classList.remove("scrambling");
+    };
+
+    trigger.addEventListener("mouseenter", startScramble);
+    trigger.addEventListener("mouseleave", stopScramble);
+
+    trigger.addEventListener("touchstart", startScramble, { passive: true });
+    trigger.addEventListener("touchend", stopScramble);
+    trigger.addEventListener("touchcancel", stopScramble);
+    });
+
+    function revealScramble(el, timers, intervals) {
+    el.classList.add("scrambling");
+
+    const original = el.dataset.original;
+    const chars = original.split("");
+    const length = chars.length;
+
+    let revealed = Array.from(chars, c => (c === " " ? " " : ""));
+    el.textContent = revealed.join("");
+
+    let index = 0;
+
+    function revealNext() {
+        if (index >= length) {
+        el.classList.remove("scrambling");
+        return;
+        }
+
+        if (chars[index] === " ") {
+        index++;
+        const t = setTimeout(revealNext, CHAR_INTERVAL);
+        timers.push(t);
+        return;
+        }
+
+        let frame = 0;
+
+        const scramble = setInterval(() => {
+        revealed[index] =
+            frame < SCRAMBLE_FRAMES
+            ? RANDOM_CHARS[Math.floor(Math.random() * RANDOM_CHARS.length)]
+            : chars[index];
+
+        el.textContent = revealed.join("");
+        frame++;
+
+        if (frame > SCRAMBLE_FRAMES) {
+            clearInterval(scramble);
+            const iIndex = intervals.indexOf(scramble);
+            if (iIndex > -1) intervals.splice(iIndex, 1);
+
+            index++;
+            const t = setTimeout(revealNext, CHAR_INTERVAL);
+            timers.push(t);
+        }
+        }, 30);
+
+        intervals.push(scramble);
+    }
+
+    revealNext();
+    }
 });
