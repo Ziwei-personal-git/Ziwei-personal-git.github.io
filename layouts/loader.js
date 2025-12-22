@@ -241,7 +241,7 @@ document.addEventListener('DOMContentLoaded', () => {
         sessionStorage.setItem("homeVisited", "true");
         setTimeout(() => {
         typeHTML(title, html, 160, cursor);
-        }, 2000);
+        }, 1000);
     }
 
     function typeHTML(element, html, speed, cursor) {

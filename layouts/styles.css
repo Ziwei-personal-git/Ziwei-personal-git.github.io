@@ -305,11 +305,11 @@ body {
 }
 
 .theme-btn i {
-    transition: transform 0.5s ease-in-out; 
+    transition: filter 0.5s ease-in-out; 
 }
 
 .theme-btn:hover i {
-    transform: rotate(90deg); 
+    filter: invert(100%); 
 }
 
 .sun-icon { display: none; }
@@ -374,7 +374,7 @@ body {
 }
 
 .hamburgerbutton:hover .bar {
-    background-color: var(--link-hover);
+    background-color: var(--link-color);
 }
 
 .hamburgerbutton:hover .bar:nth-child(1) {
