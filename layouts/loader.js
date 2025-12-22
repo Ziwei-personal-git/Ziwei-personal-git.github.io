@@ -226,4 +226,88 @@ document.addEventListener('DOMContentLoaded', () => {
         bg.addEventListener('touchcancel', () => removeHover(bg));
     });
 
+    /* ----------------------------------------------------
+     * Header blink
+     * -------------------------------------------------- */
+
+    const title = document.getElementById("site-title");
+    const cursor = title.querySelector(".cursor");
+    const html = title.dataset.typed;
+    const visited = sessionStorage.getItem("homeVisited");
+
+    if (visited) {
+        title.innerHTML = html;
+    } else {
+        sessionStorage.setItem("homeVisited", "true");
+        setTimeout(() => {
+        typeHTML(title, html, 160, cursor);
+        }, 2000);
+    }
+
+    function typeHTML(element, html, speed, cursor) {
+        const temp = document.createElement("div");
+        temp.innerHTML = html;
+        const nodes = Array.from(temp.childNodes);
+
+        element.innerHTML = "";
+        element.appendChild(cursor);
+
+        let nodeIndex = 0;
+
+        function typeNode(node, done) {
+        if (node.nodeType === Node.TEXT_NODE) {
+            let i = 0;
+            const textNode = document.createTextNode("");
+            element.insertBefore(textNode, cursor);
+
+            const interval = setInterval(() => {
+            textNode.textContent += node.textContent[i++];
+            if (i >= node.textContent.length) {
+                clearInterval(interval);
+                done();
+            }
+            }, speed);
+        } else {
+            const clone = node.cloneNode(false);
+            element.insertBefore(clone, cursor);
+
+            const children = Array.from(node.childNodes);
+            let i = 0;
+
+            function nextChild() {
+            if (i < children.length) {
+                typeNodeInto(children[i++], clone, nextChild);
+            } else {
+                done();
+            }
+            }
+            nextChild();
+        }
+        }
+
+        function typeNodeInto(node, parent, done) {
+        let i = 0;
+        const textNode = document.createTextNode("");
+        parent.appendChild(textNode);
+
+        const interval = setInterval(() => {
+            textNode.textContent += node.textContent[i++];
+            if (i >= node.textContent.length) {
+            clearInterval(interval);
+            done();
+            }
+        }, speed);
+        }
+
+        function proceed() {
+        if (++nodeIndex < nodes.length) {
+            typeNode(nodes[nodeIndex], proceed);
+        } else {
+            cursor.remove(); 
+        }
+        }
+
+        typeNode(nodes[nodeIndex], proceed);
+    }
+
 });
