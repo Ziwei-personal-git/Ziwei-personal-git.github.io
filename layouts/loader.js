@@ -1,273 +1,229 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    function loadHTML(url, elementId, callback) {
+    /* ----------------------------------------------------
+     * Utilities
+     * -------------------------------------------------- */
+
+    const loadHTML = (url, elementId, callback) => {
         fetch(url)
-            .then(response => response.text())
+            .then(res => res.text())
             .then(html => {
-                const element = document.getElementById(elementId);
-                if (element) {
-                    element.innerHTML = html;
-                    // Run the callback if it exists
-                    if (callback) callback();
-                }
+                const el = document.getElementById(elementId);
+                if (!el) return;
+                el.innerHTML = html;
+                callback?.();
             })
-            .catch(error => console.error('Error loading content:', error));
-    }
-    // ----------------------------------------------------
-    // Light/Dark mode
-    // ----------------------------------------------------
-    function initTheme() {
+            .catch(err => console.error('Error loading content:', err));
+    };
+
+    /* ----------------------------------------------------
+     * Light / Dark Theme
+     * -------------------------------------------------- */
+
+    const initTheme = () => {
         const toggleBtn = document.getElementById('theme-toggle');
         if (!toggleBtn) return;
 
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        document.documentElement.setAttribute('data-theme', savedTheme);
+        const theme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', theme);
 
         toggleBtn.addEventListener('click', () => {
-            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-            const newTheme = isDark ? 'light' : 'dark';
-
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
         });
-    }
+    };
 
+    /* ----------------------------------------------------
+     * Layout Loading
+     * -------------------------------------------------- */
 
-    
-    // ----------------------------------------------------
-    // START: Layout and Footer Loading Handlers 
-    // ----------------------------------------------------
-    loadHTML("/layouts/header.html", "header-placeholder",initTheme);
+    loadHTML('/layouts/header.html', 'header-placeholder', initTheme);
     loadHTML('/layouts/sidebar.html', 'sidebar-placeholder');
     loadHTML('/layouts/footnote.html', 'footnote-placeholder');
-    
-    function enumerateListItems(listSelector) {
-        const items = document.querySelectorAll(listSelector);
-        const totalItems = items.length;
 
-        if (totalItems === 0) {
-            return;
-        }
+    /* ----------------------------------------------------
+     * List Enumeration
+     * -------------------------------------------------- */
 
-        items.forEach((item, index) => {
-            const reversedNumber = totalItems - index;
-            const numberSpan = item.querySelector('.list-number');
+    const enumerateListItems = selector => {
+        const items = document.querySelectorAll(selector);
+        const total = items.length;
 
-            if (numberSpan) {
-                numberSpan.textContent = reversedNumber + '.';
-            }
+        items.forEach((item, i) => {
+            const num = item.querySelector('.list-number');
+            if (num) num.textContent = `${total - i}.`;
         });
-    }
+    };
 
-    const collapseds = document.querySelectorAll('.collapsed-header');
-    
-    collapseds.forEach(header => {
+    enumerateListItems('#publication-list li');
+    enumerateListItems('#book-chapters-list li');
+    enumerateListItems('#patents-list li');
+
+    /* ----------------------------------------------------
+     * Collapsible Sections
+     * -------------------------------------------------- */
+
+    document.querySelectorAll('.collapsed-header').forEach(header => {
         header.addEventListener('click', () => {
-            const content = header.nextElementSibling; 
+            const content = header.nextElementSibling;
+            if (!content) return;
 
             header.classList.toggle('active');
-            const isExpanded = header.classList.contains('active');
-            header.setAttribute('aria-expanded', isExpanded); 
-
+            const expanded = header.classList.contains('active');
+            header.setAttribute('aria-expanded', expanded);
             content.classList.toggle('collapsed');
 
-            if (isExpanded) {
+            if (expanded) {
                 setTimeout(() => {
-                    content.style.maxHeight = content.scrollHeight + "px";
-                }, 5); 
+                    content.style.maxHeight = `${content.scrollHeight}px`;
+                }, 5);
             } else {
-                
-                content.style.maxHeight = content.scrollHeight + "px"; 
+                content.style.maxHeight = `${content.scrollHeight}px`;
                 requestAnimationFrame(() => {
-                    content.style.maxHeight = null; 
+                    content.style.maxHeight = null;
                 });
             }
 
-            const parentGroup = header.closest('.publication-group');
-            if (parentGroup && parentGroup.id === 'publications-Articles' && isExpanded) {
+            const group = header.closest('.publication-group');
+            if (group?.id === 'publications-Articles' && expanded) {
                 setTimeout(() => {
-                    parentGroup.style.maxHeight = parentGroup.scrollHeight + "px";
-                }, 100); 
+                    group.style.maxHeight = `${group.scrollHeight}px`;
+                }, 100);
             }
         });
-   
-
-        enumerateListItems('#publication-list li');
-        enumerateListItems('#book-chapters-list li');
-        enumerateListItems('#patents-list li');
     });
+
+    /* ----------------------------------------------------
+     * Scroll-Driven Scene Transitions
+     * -------------------------------------------------- */
 
     const stickyContainer = document.getElementById('sticky-container');
     const textOverlay = document.getElementById('text-overlay');
-    const dynamicContentContainer = document.getElementById('dynamic-content-container');
-
-    const triggerSections = Array.from(document.querySelectorAll('.trigger-section'));
+    const dynamicContent = document.getElementById('dynamic-content-container');
+    const triggerSections = [...document.querySelectorAll('.trigger-section')];
     const images = document.querySelectorAll('#image-display img');
 
-    const initialContentNode = dynamicContentContainer.querySelector('.dynamic-content-swap');
-    const originalScene1Content = initialContentNode ? initialContentNode.innerHTML : '';
+    const initialNode = dynamicContent?.querySelector('.dynamic-content-swap');
+    const originalScene1 = initialNode?.innerHTML || '';
 
     let currentScene = 1;
     let isAnimating = false;
     let queuedScene = null;
+    let t1, t2;
 
-    let transitionTimeout1;
-    let transitionTimeout2;
-
-    function getSceneContent(scene) {
-        if (scene === 1) return originalScene1Content;
-
+    const getSceneContent = scene => {
+        if (scene === 1) return originalScene1;
         const trigger = triggerSections[scene - 2];
-        if (!trigger) return '';
+        return trigger?.querySelector('.dynamic-content-swap')?.innerHTML || '';
+    };
 
-        const node = trigger.querySelector('.dynamic-content-swap');
-        return node ? node.innerHTML : '';
-    }
-
-    function updateContent(scene, contentHTML) {
-        dynamicContentContainer.innerHTML =
-            `<div class="dynamic-content-swap">${contentHTML}</div>`;
-
+    const updateScene = (scene, html) => {
+        dynamicContent.innerHTML = `<div class="dynamic-content-swap">${html}</div>`;
         images.forEach(img => img.classList.remove('active', 'zoom-out-blur'));
+        document.getElementById(`image-${scene}`)?.classList.add('active');
+    };
 
-        const newImage = document.getElementById(`image-${scene}`);
-        if (newImage) newImage.classList.add('active');
-    }
+    const transitionScene = (scene, down, html) => {
+        if (scene === currentScene) return;
 
-    function transitionScene(newScene, isScrollingDown, contentHTML) {
-        if (newScene === currentScene) return;
-
-        clearTimeout(transitionTimeout1);
-        clearTimeout(transitionTimeout2);
-
+        clearTimeout(t1);
+        clearTimeout(t2);
         isAnimating = true;
 
-        const slideOutClass = isScrollingDown ? 'slide-out-left' : 'slide-out-right';
-        const preEnterClass = isScrollingDown ? 'pre-enter-left' : 'pre-enter-right';
+        const out = down ? 'slide-out-left' : 'slide-out-right';
+        const enter = down ? 'pre-enter-left' : 'pre-enter-right';
         const duration = 1200;
 
-        stickyContainer.classList.remove(
-            'slide-out-left',
-            'slide-out-right',
-            'pre-enter-left',
-            'pre-enter-right'
-        );
-
-        stickyContainer.classList.add(slideOutClass);
+        stickyContainer.classList.remove(out, enter);
+        stickyContainer.classList.add(out);
         textOverlay.classList.add('fading-out');
 
-        transitionTimeout1 = setTimeout(() => {
-            stickyContainer.classList.remove(slideOutClass);
-            stickyContainer.classList.add(preEnterClass);
+        t1 = setTimeout(() => {
+            stickyContainer.classList.remove(out);
+            stickyContainer.classList.add(enter);
 
-            currentScene = newScene;
-            updateContent(newScene, contentHTML);
+            currentScene = scene;
+            updateScene(scene, html);
 
-            stickyContainer.offsetHeight; 
-
-            stickyContainer.classList.remove(preEnterClass);
+            stickyContainer.offsetHeight;
+            stickyContainer.classList.remove(enter);
             textOverlay.classList.remove('fading-out');
         }, duration);
 
-        transitionTimeout2 = setTimeout(() => {
+        t2 = setTimeout(() => {
             isAnimating = false;
-
             if (queuedScene && queuedScene !== currentScene) {
-                const target = queuedScene;
+                const next = queuedScene;
                 queuedScene = null;
-                requestSceneChange(target);
+                requestScene(next);
             }
         }, duration * 2);
-    }
-
-    function requestSceneChange(targetScene) {
-        if (targetScene === currentScene) return;
-
-        if (isAnimating) {
-            queuedScene = targetScene;
-            return;
-        }
-
-        const isScrollingDown = targetScene > currentScene;
-        const contentHTML = getSceneContent(targetScene);
-
-        if (contentHTML) {
-            transitionScene(targetScene, isScrollingDown, contentHTML);
-        }
-    }
-
-    function getDesiredScene() {
-        let scene = 1;
-
-        triggerSections.forEach((section, index) => {
-            const rect = section.getBoundingClientRect();
-            if (rect.top <= window.innerHeight * 0.5) {
-                scene = index + 2;
-            }
-        });
-
-        return scene;
-    }
-
-    let ticking = false;
-
-    function onScroll() {
-        if (!ticking) {
-            window.requestAnimationFrame(() => {
-                const desiredScene = getDesiredScene();
-                requestSceneChange(desiredScene);
-                ticking = false;
-            });
-            ticking = true;
-        }
-    }
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    document.addEventListener('click', (e) => {
-        const menuBtn = e.target.closest('#hamburgerbutton');
-        if (!menuBtn) return;
-
-        const sidebar = document.querySelector('.sidebar');
-        const navLinks = document.getElementById('hamburgerlinks');
-        if (sidebar) {
-            sidebar.classList.toggle('active');
-        }
-        if (navLinks) {
-            navLinks.classList.toggle('active');
-        }
-        menuBtn.classList.toggle('active');
-    });
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    const addHover = el => el.classList.add('is-hovered');
-    const removeHover = el => {
-        setTimeout(() => el.classList.remove('is-hovered'), 1);
     };
 
-    const headerLinks = document.querySelectorAll('.homeheaderlinks a');
+    const requestScene = scene => {
+        if (scene === currentScene) return;
+        if (isAnimating) {
+            queuedScene = scene;
+            return;
+        }
+        const html = getSceneContent(scene);
+        if (html) transitionScene(scene, scene > currentScene, html);
+    };
 
-    headerLinks.forEach(headerLink => {
-        const href = headerLink.getAttribute('href');
-        const bgLink = document.querySelector('.bg-link[href="' + href + '"]');
-        if (!bgLink) return;
+    const getDesiredScene = () => {
+        let scene = 1;
+        triggerSections.forEach((sec, i) => {
+            if (sec.getBoundingClientRect().top <= window.innerHeight * 0.5) {
+                scene = i + 2;
+            }
+        });
+        return scene;
+    };
 
-        headerLink.addEventListener('mouseenter', () => addHover(bgLink));
-        headerLink.addEventListener('mouseleave', () => removeHover(bgLink));
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+            requestScene(getDesiredScene());
+            ticking = false;
+        });
+    }, { passive: true });
+
+    /* ----------------------------------------------------
+     * Hamburger Menu
+     * -------------------------------------------------- */
+
+    document.addEventListener('click', e => {
+        const btn = e.target.closest('#hamburgerbutton');
+        if (!btn) return;
+
+        document.querySelector('.sidebar')?.classList.toggle('active');
+        document.getElementById('hamburgerlinks')?.classList.toggle('active');
+        btn.classList.toggle('active');
     });
 
-    const bgLinks = document.querySelectorAll('.bg-link');
+    /* ----------------------------------------------------
+     * Header Link Hover Sync
+     * -------------------------------------------------- */
 
-    bgLinks.forEach(bgLink => {
-        bgLink.addEventListener('touchstart', () => addHover(bgLink));
-        bgLink.addEventListener('touchend', () => removeHover(bgLink));
-        bgLink.addEventListener('touchcancel', () => removeHover(bgLink));
+    const addHover = el => el.classList.add('is-hovered');
+    const removeHover = el => setTimeout(() => el.classList.remove('is-hovered'), 1);
+
+    document.querySelectorAll('.homeheaderlinks a').forEach(link => {
+        const bg = document.querySelector(`.bg-link[href="${link.getAttribute('href')}"]`);
+        if (!bg) return;
+
+        link.addEventListener('mouseenter', () => addHover(bg));
+        link.addEventListener('mouseleave', () => removeHover(bg));
+    });
+
+    document.querySelectorAll('.bg-link').forEach(bg => {
+        bg.addEventListener('touchstart', () => addHover(bg));
+        bg.addEventListener('touchend', () => removeHover(bg));
+        bg.addEventListener('touchcancel', () => removeHover(bg));
     });
 
 });
-
-
-

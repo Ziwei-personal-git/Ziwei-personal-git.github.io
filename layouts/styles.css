@@ -197,7 +197,7 @@ body {
     font-weight: bold;
     align-items: flex-start;
     justify-content: flex-start;
-    padding: 8rem 0 0 1rem;
+    padding: 35% 0 0 5%;
     text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
     opacity: 0.2; 
     transform: scale(0.95);
@@ -843,5 +843,9 @@ body {
     .bg-link.is-hovered {
         flex: 1.2;
         filter: grayscale(0%); 
+    }
+
+    .bg-link span {
+        padding: 8rem 0 0 1rem;
     }
 }
