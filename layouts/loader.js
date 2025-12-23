@@ -39,9 +39,9 @@ document.addEventListener('DOMContentLoaded', () => {
      * Layout Loading
      * -------------------------------------------------- */
 
-    loadHTML('/layouts/header.html', 'header-placeholder', initTheme);
-    loadHTML('/layouts/sidebar.html', 'sidebar-placeholder');
-    loadHTML('/layouts/footnote.html', 'footnote-placeholder');
+    loadHTML('/subpages/header.html', 'header-placeholder', initTheme);
+    loadHTML('/subpages/sidebar.html', 'sidebar-placeholder');
+    loadHTML('/subpages/footnote.html', 'footnote-placeholder');
 
     /* ----------------------------------------------------
      * List Enumeration
