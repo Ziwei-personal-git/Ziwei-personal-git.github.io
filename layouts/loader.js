@@ -26,12 +26,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const theme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', theme);
+        updateThemeIcons(theme);
 
         toggleBtn.addEventListener('click', () => {
             const current = document.documentElement.getAttribute('data-theme');
             const next = current === 'dark' ? 'light' : 'dark';
             document.documentElement.setAttribute('data-theme', next);
             localStorage.setItem('theme', next);
+            updateThemeIcons(next);
+        });
+    };
+
+    const updateThemeIcons = theme => {
+        document.querySelectorAll('img.theme-icon').forEach(img => {
+            img.src = theme === 'dark'
+                ? img.dataset.dark
+                : img.dataset.light;
         });
     };
 
