@@ -18,7 +18,7 @@
     --bg-main: #121212;
     --bg-header: #1e1e1e;
     --bg-content: #181818;
-    --text-main: #e2e8f0;
+    --text-main: whitesmoke;
     --text-sidebar: #94a3b8;
     --text-sidebar-hover: #60a5fa;
     --border-color: #334155;
@@ -336,7 +336,7 @@ body {
     font-size: 1rem;
     background: none;
     border: none;
-    color: white;
+    color: var(--bg-main);
     cursor: pointer;
 }
 
@@ -369,12 +369,12 @@ body {
   width: 25px;
   height: 3px;
   margin: 5px auto;
-  background-color: white;
+  background-color: var(--bg-main);
   transition: all 0.3s ease-in-out;
 }
 
 .hamburgerbutton:hover .bar {
-    background-color: var(--link-color);
+    background-color: var(--bg-main);
 }
 
 .hamburgerbutton:hover .bar:nth-child(1) {
@@ -395,12 +395,12 @@ body {
 
 #hamburgerbutton.active .bar:nth-child(1) { 
     transform: translateY(8px) rotate(45deg); 
-    background-color: var(--link-hover);
+    background-color: var(--bg-main);
 }
 
 #hamburgerbutton.active .bar:nth-child(3) { 
     transform: translateY(-8px) rotate(-45deg); 
-    background-color: var(--link-hover);
+    background-color: var(--bg-main);
 }
 
 .list-number {
@@ -464,7 +464,7 @@ body {
 .publication-content .chinese {
     font-family: "kaiti", sans-serif;
     display: block;
-    font-weight: bold;
+    font-weight: bolder;
     margin-top: -2px; 
     margin-bottom: 3px; 
 }
@@ -524,7 +524,7 @@ body {
     display: flex;
     align-items: center;
     text-decoration: none;
-    color: var(--text-sidebar);
+    color: var(--link-color);
     padding: 6px 0;
 }
 
@@ -541,14 +541,14 @@ body {
 }
 
 .sidebar ul li a:hover {
-    color: var(--text-sidebar-hover);
+    color: var(--link-hover);
     font-style: italic;
 }
 
 .subsection-separator {
     font-size: 20px; 
     font-weight: bold; 
-    color: var(--link-color);
+    color: var(--text-main);
     margin-top: 0.5em; 
     margin-bottom: 0.5em; 
 }
