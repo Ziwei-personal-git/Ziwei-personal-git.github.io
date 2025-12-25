@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ziwei-personal-git.github.io/sitemap.xml
+Sitemap: https://ziwei-personal-git.github.io/sitemap/sitemap.xml
