@@ -71,6 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
     enumerateListItems('#publication-list li');
     enumerateListItems('#book-chapters-list li');
     enumerateListItems('#patents-list li');
+    enumerateListItems('#video-list li');
 
     /* ----------------------------------------------------
      * Collapsible Sections

@@ -456,6 +456,19 @@ body {
     margin-top: 10px; 
 }
 
+@font-face {
+  font-family: "kaiti";
+  src: url("/assets/fonts/kaiti.ttf") format("truetype");
+}
+
+.publication-content .chinese {
+    font-family: "kaiti", sans-serif;
+    display: block;
+    font-weight: bold;
+    margin-top: -2px; 
+    margin-bottom: 3px; 
+}
+
 .course-content {
     flex: 1;
     min-width: 0; 
