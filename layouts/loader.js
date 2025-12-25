@@ -67,6 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
+    enumerateListItems('#course-list li');
     enumerateListItems('#publication-list li');
     enumerateListItems('#book-chapters-list li');
     enumerateListItems('#patents-list li');

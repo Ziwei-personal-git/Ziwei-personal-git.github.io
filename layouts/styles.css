@@ -456,6 +456,28 @@ body {
     margin-top: 10px; 
 }
 
+.course-content {
+    flex: 1;
+    min-width: 0; 
+}
+
+.course-content .title {
+    display: block; 
+    margin-bottom: 5px;
+}
+
+.course-content .details {
+    display: block;
+    margin-bottom: 5px;
+    line-height: 1.4; 
+}
+.course-content .university {
+    display: block;
+    margin-bottom: 5px;
+    line-height: 1.4; 
+}
+
+
 .publication-group {
     display: block;
     transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
@@ -467,7 +489,9 @@ body {
     opacity: 0;
     margin-bottom: 0;
     padding-top: 0;
-    padding-bottom: 0;}
+    padding-bottom: 0;
+}
+
 
 .sidebar {
     flex: 1; /* Share width with content (3) */
@@ -572,6 +596,34 @@ body {
 .year-separator.collapsed-header.active::after {
     content: '-'; 
 }
+
+.course-year {
+    font-size: 20px; 
+    font-weight: bold; 
+    margin-top: 0.5em; 
+    margin-bottom: 1em;
+}
+
+.course-year.collapsed-header {
+    cursor: pointer;
+    user-select: none; 
+    position: relative;
+    padding-left: 25px;
+    padding-right: 10px; 
+}
+
+.course-year.collapsed-header::after {
+    content: '+'; 
+    position: absolute;
+    left: 10px;
+    font-weight: bold;
+    transition: transform 0.3s ease;
+}
+
+.course-year.collapsed-header.active::after {
+    content: '-'; 
+}
+
 
 #initial-img {
     max-width: 800px; 
