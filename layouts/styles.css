@@ -432,12 +432,6 @@ body {
     padding: 0 20px;
 }
 
-
-.myname{
-    font-weight: normal;
-    font-size: 20px;
-}
-
 .surnamecaps{
     text-transform: uppercase;
     font-size: 0.724em;
@@ -854,11 +848,11 @@ body {
 }
 
 .slide-out-right #image-display {
-    transform: translateX(120%);
+    transform: translateX(300%);
 }
 
 .slide-out-right #text-column {
-    transform: translateX(-120%);
+    transform: translateX(-300%);
 }
 
 .pre-enter-left #image-display {
@@ -870,11 +864,11 @@ body {
 }
 
 .pre-enter-right #image-display {
-    transform: translateX(-120%);
+    transform: translateX(-300%);
 }
 
 .pre-enter-right #text-column {
-    transform: translateX(120%);
+    transform: translateX(300%);
 }
 
 .trigger-section {
@@ -892,6 +886,23 @@ body {
     .main-wrapper {
         grid-template-columns: 1fr;
         margin-top: 0;
+    }
+
+    .sticky-content {
+        flex-direction: column;
+    }
+
+    .slide-out-right #image-display {
+        transform: translateX(120%);    
+    }
+    .slide-out-right #text-column {
+        transform: translateX(-120%);
+    }
+    .pre-enter-right #image-display {
+        transform: translateX(-120%);
+    }
+    .pre-enter-right #text-column {
+        transform: translateX(120%);
     }
     
     .sidebar {
@@ -1033,4 +1044,9 @@ body {
     .card-image{
         height:auto;
     }
+
+    .site-title{
+        font-size: 1.7em;
+    }
+    
 }
