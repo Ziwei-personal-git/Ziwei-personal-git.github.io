@@ -420,6 +420,7 @@ body {
     margin-right: 10px; 
     flex-shrink: 0; 
     min-width: 1em; 
+    padding-left: 2em;
 }
 
 .main-wrapper {
