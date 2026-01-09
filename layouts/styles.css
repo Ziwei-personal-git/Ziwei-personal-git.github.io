@@ -883,7 +883,7 @@ body {
 
 
 /* Responsive design for smaller screens */
-@media (max-width: 768px) {
+@media (max-width: 1020px) {
     .main-wrapper {
         grid-template-columns: 1fr;
         margin-top: 0;
