@@ -8,7 +8,6 @@
     --text-main: #333333;
     --text-sidebar: rgb(16, 44, 147);
     --text-sidebar-hover: rgb(0, 55, 255);
-    --border-color: #cccccc;
     --link-color: rgb(35, 63, 166);
     --link-hover: #1d4ed8;
     --sidebar-background: linear-gradient(135deg, #E3F0FF, #CFE4FF);
@@ -26,9 +25,8 @@
     --text-main: whitesmoke;
     --text-sidebar: #94a3b8;
     --text-sidebar-hover: #60a5fa;
-    --border-color: #334155;
     --link-color: #93c5fd;
-    --link-hover: #bfdbfe;
+    --link-hover: hsl(210, 5%, 8%);
     --sidebar-background: linear-gradient(135deg, #2B3F73, #3D56A1);
     --pic-shadow:  
         4px 4px 12px hsla(0, 0%, 100%, 0.4),
@@ -84,7 +82,7 @@ body {
 
 .content {
     padding-left: 20px;
-    border-left: 1px solid var(--border-color);
+    border-left: 1px solid;
 }
 
 .flex-rows {
