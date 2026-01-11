@@ -641,12 +641,6 @@ html {
 
 /* cover art */
 
-.page-coverarts .cover-art-img {
-    width: 200px; 
-    height: auto; 
-    box-shadow: var(--pic-shadow);
-}
-
 .page-coverarts .cover-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -885,14 +879,38 @@ html {
     right:50px;
     bottom:20px;
     z-index: 9999;
+    animation: bottom-up linear, opacity linear;
+    animation-timeline: scroll();
+}
+
+@keyframes bottom-up {
+    to {
+        bottom: 70px;
+    }
+}
+
+@keyframes opacity {
+    0% {
+        opacity: 0;
+    }
+    16%, 100% {
+        opacity: 100%;
+    }
 }
 
 .page-research .totop .btn {
-    font-size: 20px;
+    font-size: 30px;
     background-color: var(--bg-main);
     color: var(--text-main);
     border-radius: 5px;
     opacity: 50%;
+    animation: bounce 1s infinite;
+
+}
+
+@keyframes bounce {
+    0%, 100% {transform: translateY(0);}
+    50% {transform: translateY(-30px);}
 }
 
 /* about */
