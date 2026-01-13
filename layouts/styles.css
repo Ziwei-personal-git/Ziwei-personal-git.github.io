@@ -899,11 +899,7 @@ html {
 }
 
 .page-research .totop .btn {
-    font-size: 30px;
-    background-color: var(--bg-main);
     color: var(--text-main);
-    border-radius: 5px;
-    opacity: 50%;
     animation: bounce 1s infinite;
 
 }
@@ -1114,6 +1110,10 @@ html {
         transform: translateX(120%);
     }
 
+    .page-research .totop {
+        right:10px;
+    }
+    
     /* about */
 
     .page-about .flex-rows {
