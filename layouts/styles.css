@@ -939,7 +939,7 @@ html {
 
 
 /* Responsive design for smaller screens */
-@media (max-width: 1020px) {
+@media (max-width: 1024px) {
     /* global */
 
     .main-wrapper {
