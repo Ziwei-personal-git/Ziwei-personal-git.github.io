@@ -95,7 +95,8 @@ html {
     padding-left: 0; 
 }
 
-.aligned-list li {
+.aligned-list li,
+.aligned-list .publication-item {
     display: flex; 
     align-items: flex-start;
     margin-bottom: 25px; 
@@ -528,6 +529,12 @@ html {
     position: relative;
     padding-left: 25px;
     padding-right: 10px; 
+}
+
+.page-publications .subsection-separator.collapsed-header:focus-visible,
+.page-publications .year-separator.collapsed-header:focus-visible {
+    outline: 2px solid var(--link-color);
+    outline-offset: 3px;
 }
 .page-publications .subsection-separator.collapsed-header:hover{
     font-style: italic;

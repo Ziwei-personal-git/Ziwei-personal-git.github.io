@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     enumerateListItems('#course-list li');
-    enumerateListItems('#publication-list li');
+    enumerateListItems('#publication-list .publication-item');
     enumerateListItems('#book-chapters-list li');
     enumerateListItems('#patents-list li');
     enumerateListItems('#video-list li');
@@ -78,7 +78,11 @@ document.addEventListener('DOMContentLoaded', () => {
      * -------------------------------------------------- */
 
     document.querySelectorAll('.collapsed-header').forEach(header => {
-        header.addEventListener('click', () => {
+        header.setAttribute('role', 'button');
+        header.setAttribute('tabindex', '0');
+        header.setAttribute('aria-expanded', 'false');
+
+        const toggleSection = () => {
             const content = header.nextElementSibling;
             if (!content) return;
 
@@ -104,6 +108,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     group.style.maxHeight = `${group.scrollHeight}px`;
                 }, 100);
             }
+        };
+
+        header.addEventListener('click', toggleSection);
+        header.addEventListener('keydown', event => {
+            if (event.key !== 'Enter' && event.key !== ' ') return;
+            event.preventDefault();
+            toggleSection();
         });
     });
 
@@ -214,7 +225,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.querySelector('.sidebar')?.classList.toggle('active');
         document.getElementById('hamburgerlinks')?.classList.toggle('active');
-        btn.classList.toggle('active');
+        const expanded = btn.classList.toggle('active');
+        btn.setAttribute('aria-expanded', expanded);
     });
 
     /* ----------------------------------------------------
@@ -243,17 +255,19 @@ document.addEventListener('DOMContentLoaded', () => {
      * -------------------------------------------------- */
 
     const title = document.getElementById("site-title");
-    const cursor = title.querySelector(".cursor");
-    const html = title.dataset.typed;
+    const cursor = title?.querySelector(".cursor");
+    const html = title?.dataset.typed;
     const visited = sessionStorage.getItem("homeVisited");
 
-    if (visited) {
-        title.innerHTML = html;
-    } else {
-        sessionStorage.setItem("homeVisited", "true");
-        setTimeout(() => {
-        typeHTML(title, html, 160, cursor);
-        }, 1500);
+    if (title && cursor && html) {
+        if (visited) {
+            title.innerHTML = html;
+        } else {
+            sessionStorage.setItem("homeVisited", "true");
+            setTimeout(() => {
+            typeHTML(title, html, 160, cursor);
+            }, 1500);
+        }
     }
 
     function typeHTML(element, html, speed, cursor) {
