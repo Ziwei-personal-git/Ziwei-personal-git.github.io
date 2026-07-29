@@ -1,38 +1,46 @@
 /* VARIABLES */
 /* --- Color Definitions --- */
 :root {
+    /* IPHT Brand Colors */
+    --ipht-navy: #003770;
+    --ipht-teal: #03977c;
+    --ipht-lime: #93c01e;
+
     /* Light Mode */
     --bg-main: #f4f4f9;
-    --bg-header: whitesmoke;
-    --bg-content: #f5f5f5;
-    --text-homepage:whitesmoke;
-    --text-main: #333333;
-    --text-sidebar: rgb(16, 44, 147);
-    --text-sidebar-hover: rgb(0, 55, 255);
-    --link-color: rgb(35, 63, 166);
-    --link-hover: #1d4ed8;
-    --sidebar-background: linear-gradient(135deg, #E3F0FF, #CFE4FF);
+    --bg-header: #07192e; 
+    --bg-content: #ffffff;
+    --text-homepage: #ffffff;
+    --text-main: #1f2937;
+    --text-sidebar: var(--ipht-navy);
+    --text-sidebar-hover: var(--ipht-teal);
+    --link-color: var(--ipht-teal);
+    --link-hover: var(--ipht-navy);
+    --sidebar-background: linear-gradient(135deg, #eaf4f2, #dbeee9);
     --pic-shadow:   
-        4px 4px 12px hsla(0, 0%, 0%, 0.4),
-        -6px -6px 8px hsla(0, 0%, 100%, 0.06);
-    --sidebar-shadow: 0 0px 24px hsla(217, 54%, 53%, 0.18);
+        4px 4px 12px rgba(0, 55, 112, 0.15),
+        -6px -6px 8px rgba(255, 255, 255, 0.8);
+    --sidebar-shadow: 0 0px 24px rgba(0, 55, 112, 0.08);
+    --accent-pop: var(--ipht-lime);
 }
 
 [data-theme="dark"] {
     /* Dark Mode */
-    --bg-main: #121212;
-    --bg-header: #1e1e1e;
-    --bg-content: #181818;
-    --text-main: whitesmoke;
+    --bg-main: #0c131d;
+    --bg-header: #07192e;
+    --bg-content: #131f2e;
+    --text-homepage: #ffffff;
+    --text-main: #e2e8f0;
     --text-sidebar: #94a3b8;
-    --text-sidebar-hover: #60a5fa;
-    --link-color: #93c5fd;
-    --link-hover: hsl(210, 5%, 8%);
-    --sidebar-background: linear-gradient(135deg, #2B3F73, #3D56A1);
+    --text-sidebar-hover: #5eead4;
+    --link-color: #5eead4;
+    --link-hover: var(--ipht-lime);
+    --sidebar-background: linear-gradient(135deg, #0f2338, #162f4a); 
     --pic-shadow:  
-        4px 4px 12px hsla(0, 0%, 100%, 0.4),
-        -3px -3px 4px hsla(0, 0%, 100%, 0.2);
-    --sidebar-shadow: 0px 0px 30px hsla(228, 71%, 28%, 0.55);
+        4px 4px 12px rgba(0, 0, 0, 0.6),
+        -2px -2px 6px rgba(255, 255, 255, 0.05);
+    --sidebar-shadow: 0px 0px 30px rgba(0, 55, 112, 0.35);
+    --accent-pop: var(--ipht-lime);
 }
 
 [data-theme="dark"] .hamburgerlinks {
@@ -268,7 +276,7 @@ html {
 /* header */
 
 .otherheader {
-    background-color: #A3C1AD;
+    background-color: #003770;
     color: white;
     padding: 10px;
     text-align: center;
